@@ -54,7 +54,6 @@ public class PlayerMovement : MonoBehaviour
     {
         rf_JumpChecks();
         rf_CountTimers();
-        //Debug.Log("vert vel: " + VerticalVelocity);
     }
 
     private void FixedUpdate()
