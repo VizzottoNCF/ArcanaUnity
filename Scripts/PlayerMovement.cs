@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
     // collision check vars
     private RaycastHit2D _groundHit;
     private RaycastHit2D _headHit;
+    private RaycastHit2D _edgeDetectionLeft;
+    private RaycastHit2D _edgeDetectionRight;
     private bool _isGrounded;
     private bool _bumpedHead;
 
@@ -350,10 +352,28 @@ public class PlayerMovement : MonoBehaviour
 
     private void rf_BumpedHead()
     {
+        // makes a 80% headwitdh hit box to hit hex
         Vector2 boxCastOrigin = new Vector2(_bodyCollider.bounds.center.x, _bodyCollider.bounds.max.y);
-        Vector2 boxCastSize = new Vector2(_bodyCollider.bounds.size.x * moveStats.HeadWidth, moveStats.HeadDetectionRayLength);
+        Vector2 boxCastSize = new Vector2(_bodyCollider.bounds.size.x * moveStats.HeadWidth * 0.8f, moveStats.HeadDetectionRayLength);
+
+        //TODO: EDGE DETECTION
+        Vector2 edgeCastSize = new Vector2(_bodyCollider.bounds.size.x * moveStats.HeadWidth * 0.1f, moveStats.HeadDetectionRayLength);
+
+        // remaining 20% (10 from eah side) are dedicated to edge detection on jumps
+        Vector2 edgeCastOriginLeft = new Vector2(_bodyCollider.bounds.min.x, _bodyCollider.bounds.max.y);
+        Vector2 edgeCastOriginRight = new Vector2(_bodyCollider.bounds.max.x, _bodyCollider.bounds.max.y);
+
+        _edgeDetectionRight = Physics2D.BoxCast(edgeCastOriginLeft, edgeCastSize, 0f, Vector2.up, moveStats.HeadDetectionRayLength, moveStats.GroundLayer);
+        _edgeDetectionRight = Physics2D.BoxCast(edgeCastOriginRight, edgeCastSize, 0f, Vector2.up, moveStats.HeadDetectionRayLength, moveStats.GroundLayer);
+
 
         _headHit = Physics2D.BoxCast(boxCastOrigin, boxCastSize, 0f, Vector2.up, moveStats.HeadDetectionRayLength, moveStats.GroundLayer);
+
+        // head bumps
+        if ((_edgeDetectionLeft || _edgeDetectionRight) && !_headHit)
+        {
+            rf_EdgeCorrection();
+        }        
         if (_headHit.collider != null) { _bumpedHead = true; }
         else { _bumpedHead = false; }
 
@@ -371,6 +391,11 @@ public class PlayerMovement : MonoBehaviour
             Debug.DrawRay(new Vector2(boxCastOrigin.x - boxCastSize.x / 2 * headWidth, _bodyCollider.bounds.max.y + moveStats.HeadDetectionRayLength), Vector2.right * boxCastSize.x * headWidth, rayColor);
         }
         #endregion
+    }
+
+    private void rf_EdgeCorrection()
+    {
+
     }
 
     private void rf_CollisionChecks()

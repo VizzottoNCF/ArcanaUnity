@@ -33,8 +33,15 @@ public class MenuEventSystemHandler : MonoBehaviour
 
     private void Awake()
     {
+        //if (Selectables.Count > 0) { Debug.Log("There are selectables"); } else { Debug.Log("No bitches."); }
+
         foreach (var selectable in Selectables)
         {
+            if (selectable == null)
+            {
+                Debug.LogWarning("Selectable " + selectable + " is null, continuing.");
+                continue;
+            }
             rf_AddSelectionListeners(selectable);
             _scales.Add(selectable, selectable.transform.localScale);
         }
@@ -70,7 +77,7 @@ public class MenuEventSystemHandler : MonoBehaviour
     {
         // adds listener
         EventTrigger trigger = selectable.gameObject.GetComponent<EventTrigger>();
-        if (trigger == null) { trigger = selectable.gameObject.GetComponent<EventTrigger>(); }
+        if (trigger == null) { trigger = selectable.gameObject.AddComponent<EventTrigger>(); }
 
         // adds SELECT event
         EventTrigger.Entry SelectEntry = new EventTrigger.Entry
