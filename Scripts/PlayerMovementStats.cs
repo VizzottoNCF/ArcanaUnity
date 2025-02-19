@@ -25,6 +25,12 @@ public class PlayerMovementStats : ScriptableObject
     public float HeadDetectionRayLength = 0.02f;
     [Range(0f, 1f)] public float HeadWidth = 0.75f;
 
+    [Header("Movement Assist")]
+    public float EdgeCorrectionDistance = 0.1f;
+    public float LedgeSnapHorizontalRange = 0.5f; // Horizontal range to detect ledges
+    public float LedgeSnapVerticalThreshold = 0.2f; // Maximum vertical distance to snap to a ledge
+    public float LedgeSnapVerticalOffset = 0.1f; // Small offset to ensure the player stands on the platform
+
     [Header("Jump")]
     public float JumpHeight = 6.5f;
     [Range(1f, 1.1f)] public float JumpHeightCompensationFactor = 1.054f;

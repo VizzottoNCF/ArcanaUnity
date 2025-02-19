@@ -62,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rf_CollisionChecks();
         rf_Jump();
+        rf_LedgeAssist();
 
         if (_isGrounded)
         {
@@ -352,34 +353,48 @@ public class PlayerMovement : MonoBehaviour
 
     private void rf_BumpedHead()
     {
-        // makes a 80% headwitdh hit box to hit hex
+        // Makes a 80% head-width hitbox to detect head collisions
         Vector2 boxCastOrigin = new Vector2(_bodyCollider.bounds.center.x, _bodyCollider.bounds.max.y);
         Vector2 boxCastSize = new Vector2(_bodyCollider.bounds.size.x * moveStats.HeadWidth * 0.8f, moveStats.HeadDetectionRayLength);
 
-        //TODO: EDGE DETECTION
+        // Edge detection hitboxes (10% of the head width on each side)
         Vector2 edgeCastSize = new Vector2(_bodyCollider.bounds.size.x * moveStats.HeadWidth * 0.1f, moveStats.HeadDetectionRayLength);
 
-        // remaining 20% (10 from eah side) are dedicated to edge detection on jumps
+        // Origins for left and right edge detection
         Vector2 edgeCastOriginLeft = new Vector2(_bodyCollider.bounds.min.x, _bodyCollider.bounds.max.y);
         Vector2 edgeCastOriginRight = new Vector2(_bodyCollider.bounds.max.x, _bodyCollider.bounds.max.y);
 
-        _edgeDetectionRight = Physics2D.BoxCast(edgeCastOriginLeft, edgeCastSize, 0f, Vector2.up, moveStats.HeadDetectionRayLength, moveStats.GroundLayer);
+
+        // Perform edge detection box casts
+        _edgeDetectionLeft = Physics2D.BoxCast(edgeCastOriginLeft, edgeCastSize, 0f, Vector2.up, moveStats.HeadDetectionRayLength, moveStats.GroundLayer);
         _edgeDetectionRight = Physics2D.BoxCast(edgeCastOriginRight, edgeCastSize, 0f, Vector2.up, moveStats.HeadDetectionRayLength, moveStats.GroundLayer);
 
-
+        // Perform head collision box cast
         _headHit = Physics2D.BoxCast(boxCastOrigin, boxCastSize, 0f, Vector2.up, moveStats.HeadDetectionRayLength, moveStats.GroundLayer);
 
-        // head bumps
-        if ((_edgeDetectionLeft || _edgeDetectionRight) && !_headHit)
+        // Edge correction logic
+        if ((_edgeDetectionLeft || _edgeDetectionRight) && !_headHit && !_isGrounded)
         {
+            // Shift the player to the side to avoid the edge collision
             rf_EdgeCorrection();
-        }        
-        if (_headHit.collider != null) { _bumpedHead = true; }
-        else { _bumpedHead = false; }
+            _bumpedHead = false; // Prevent head bump flag from being set
+        }
+        if (_headHit.collider != null) { _bumpedHead = true; } // regular head bump
+        else { _bumpedHead = false; } // no collision
+
 
         #region Debug Visualisation
         if (moveStats.DebugShowHeadBumpBox)
         {
+
+            // Draw edge detection box casts
+            Debug.DrawRay(edgeCastOriginLeft, Vector2.up * moveStats.HeadDetectionRayLength, Color.yellow);
+            Debug.DrawRay(edgeCastOriginRight, Vector2.up * moveStats.HeadDetectionRayLength, Color.yellow);
+
+            // Draw head collision box cast
+            Debug.DrawRay(boxCastOrigin, Vector2.up * moveStats.HeadDetectionRayLength, Color.red);
+
+
             float headWidth = moveStats.HeadWidth;
 
             Color rayColor;
@@ -395,7 +410,67 @@ public class PlayerMovement : MonoBehaviour
 
     private void rf_EdgeCorrection()
     {
+        // Determine which edge is colliding
+        if (_edgeDetectionLeft)
+        {
+            // Shift the player slightly to the right
+            transform.position += Vector3.right * moveStats.EdgeCorrectionDistance;
+        }
+        else if (_edgeDetectionRight)
+        {
+            // Shift the player slightly to the left
+            transform.position += Vector3.left * moveStats.EdgeCorrectionDistance;
+        }
+    }
 
+    /// TODO: FIX LEDGE ASSIST, NOT WORKING AS INTENDED.
+    /// 
+    /// MAYBE TWEAK VALUES UNTIL IT WORKS, I'M NOT PROPER SURE IF THE CODE IS RUNNING AS INTENDED.
+    private void rf_LedgeAssist()
+    {
+        // Check if the player is in the air and moving upward (mid-jump)
+        if (!_isGrounded && VerticalVelocity > -0.1f)
+        {
+            // Calculate the origin for the ledge detection raycast
+            Vector2 rayOrigin = new Vector2(_feetCollider.bounds.center.x, _feetCollider.bounds.max.y);
+
+            // Perform a raycast upward to detect platforms within the vertical threshold
+            RaycastHit2D ledgeHit = Physics2D.Raycast(rayOrigin, Vector2.up, moveStats.LedgeSnapVerticalThreshold, moveStats.GroundLayer);
+
+            // If a platform is detected within the vertical threshold
+            if (ledgeHit.collider != null)
+            {
+                // Check if the player is horizontally aligned with the platform
+                float platformLeftEdge = ledgeHit.collider.bounds.min.x;
+                float platformRightEdge = ledgeHit.collider.bounds.max.x;
+                float playerLeftEdge = _bodyCollider.bounds.min.x;
+                float playerRightEdge = _bodyCollider.bounds.max.x;
+
+                // Check if the player is within the horizontal range of the platform
+                if (playerRightEdge > platformLeftEdge - moveStats.LedgeSnapHorizontalRange && playerLeftEdge < platformRightEdge + moveStats.LedgeSnapHorizontalRange)
+                {
+                    // Snap the player to the platform
+                    float snapYPosition = ledgeHit.collider.bounds.min.y + moveStats.LedgeSnapVerticalOffset;
+                    transform.position = new Vector2(transform.position.x, snapYPosition);
+
+                    // Reset vertical velocity and set grounded state
+                    VerticalVelocity = 0f;
+                    _isGrounded = true;
+                    _isJumping = false;
+                    _isFalling = false;
+                }
+                #region Debug Visualisation
+
+                print("AAA");
+                // Draw the ledge detection raycast
+                Debug.DrawRay(rayOrigin, Vector2.up * moveStats.LedgeSnapVerticalThreshold, Color.green);
+
+                // Draw the horizontal range
+                Debug.DrawLine(new Vector2(platformLeftEdge - moveStats.LedgeSnapHorizontalRange, rayOrigin.y), new Vector2(platformRightEdge + moveStats.LedgeSnapHorizontalRange, rayOrigin.y), Color.cyan);
+
+                #endregion
+            }
+        }
     }
 
     private void rf_CollisionChecks()
