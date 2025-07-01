@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _isFacingRight = true;
 
     [Header("Collision Check Variables")]
+    [SerializeField] private float _slopeCheckDistance = 0.5f;
     private RaycastHit2D _groundHit;
     private RaycastHit2D _headHit;
     private RaycastHit2D _edgeDetectionLeft;
@@ -24,7 +25,13 @@ public class PlayerMovement : MonoBehaviour
     private RaycastHit2D _bodyDetectionLeft;
     private RaycastHit2D _bodyDetectionRight;
     private bool _isGrounded;
-    private bool _bumpedHead;
+    private bool _bumpedHead;   
+    private float _slopeDownAngle;
+    private float _slopeDownAngleOld;
+    private Vector2 _feetColliderSize;
+    private Vector2 _slopeNormalPerpendicular;
+    [SerializeField] private bool _isOnSlope;
+
 
     [Header("Jump Variables")]
     public float VerticalVelocity { get; private set; }
@@ -62,6 +69,8 @@ public class PlayerMovement : MonoBehaviour
 
         _rb = GetComponent<Rigidbody2D>();
 
+        _feetColliderSize = _feetCollider.bounds.size;
+
         _cameraFollowObject = _cameraFollowGO.GetComponent<CameraFollowObject>();
         _fallSpeedYDampingChangeThreshold = CameraManager.instance._fallSpeedYDampingChangeTreshold;
     }
@@ -78,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
         if (_upHeldTimer > 0.45f && !CameraManager.instance.IsLerpingYOffset) { CameraManager.instance.rf_LerpYOffset(2f); }
         if (_downHeldTimer > 0.45f && !CameraManager.instance.IsLerpingYOffset) { CameraManager.instance.rf_LerpYOffset(-3f); }
 
-        if ((Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.W)) && CameraManager.instance.IsLerpingYOffset) { CameraManager.instance.rf_LerpYOffsetToNormal(); }
+        if ((InputManager.moveUpWasReleased || InputManager.moveDownWasReleased) && CameraManager.instance.IsLerpingYOffset) { CameraManager.instance.rf_LerpYOffsetToNormal(); }
 
         if (GameController.Instance.CanPlayerMove) { rf_JumpChecks(); }
         rf_CountTimers();
@@ -149,8 +158,17 @@ public class PlayerMovement : MonoBehaviour
             rf_TurnCheck(moveInput);
 
             Vector2 targetVelocity = Vector2.zero;
-            if (InputManager.runIsHeld) { targetVelocity = new Vector2(moveInput.x, 0f) * moveStats.maxRunSpeed; }
-            else { targetVelocity = new Vector2(moveInput.x, 0f) * moveStats.maxWalkSpeed; }
+            if (!_isOnSlope)
+            {
+                if (InputManager.runIsHeld) { targetVelocity = new Vector2(moveInput.x, 0f) * moveStats.maxRunSpeed; }
+                else { targetVelocity = new Vector2(moveInput.x, 0f) * moveStats.maxWalkSpeed; }
+            }
+            else if (_isOnSlope)
+            {
+                // TODO: FIX THE targetVelocity VARIABLE TO PROPERLY ADAPT TO SLOPES, CURRENT SETUP ISN'T WORKING PROPERLY
+                if (InputManager.runIsHeld) { targetVelocity = new Vector2(moveStats.maxRunSpeed * _slopeNormalPerpendicular.x * -moveInput.x, moveStats.maxRunSpeed * _slopeNormalPerpendicular.y * -moveInput.x); }
+                else { targetVelocity = new Vector2(moveStats.maxWalkSpeed * _slopeNormalPerpendicular.x * -moveInput.x, moveStats.maxWalkSpeed * _slopeNormalPerpendicular.y * -moveInput.x); }
+            }
 
             // lerp move velocity from current to target velocity and then apply to rigidbody
             _moveVelocity = Vector2.Lerp(_moveVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
@@ -417,7 +435,7 @@ public class PlayerMovement : MonoBehaviour
 
         GameController.Instance.IsPlayerGrounded = _isGrounded;
 
-        // TODO: DO SOMETHING WITH THIS MOVING PLATFORM LOGIC
+        // TODO: DO SOMETHING WITH THIS MOVING PLATFORM LOGIC, CURRENTLY UNUSED
         // if player is grounded on a moving platform/wall, he will be set as a child object to move along with it, whenever he leaves, he is set free
         //if (_groundHit.collider != null && _groundHit.collider.gameObject.CompareTag("MovingPlatform")) { _currentMovingPlatform = _groundHit.collider.gameObject.GetComponent<MovingPlatform>(); }
         //else { _currentMovingPlatform = null; }
@@ -437,6 +455,58 @@ public class PlayerMovement : MonoBehaviour
         }
         #endregion
     }
+
+    private void rf_SlopeCheck()
+    {
+        Vector2 checkPos = transform.position - new Vector3(0.0f, _feetColliderSize.y / 2);
+
+        // TODO: call rf_SlopeCheckHorizontal() once its complete
+        rf_SlopeCheckVertical(checkPos);
+    }
+
+    private void rf_SlopeCheckHorizontal(Vector2 checkPos)
+    {
+        // TODO: finish slope horizontal logic
+    }
+    private void rf_SlopeCheckVertical(Vector2 checkPos)
+    {
+        // multiple raycasts to make sure a slope is detected
+        Vector2 leftFoot = checkPos + Vector2.left * _feetColliderSize.x / 2;
+        Vector2 rightFoot = checkPos + Vector2.right * _feetColliderSize.x / 2;
+
+        // casts ray to see if above a slope
+        RaycastHit2D centerHit = Physics2D.Raycast(checkPos, Vector2.down, _slopeCheckDistance, moveStats.GroundLayer);
+        RaycastHit2D leftHit = Physics2D.Raycast(leftFoot, Vector2.down, _slopeCheckDistance, moveStats.GroundLayer);
+        RaycastHit2D rightHit = Physics2D.Raycast(rightFoot, Vector2.down, _slopeCheckDistance, moveStats.GroundLayer);
+
+
+        Debug.DrawLine(checkPos, new Vector3(checkPos.x, checkPos.y + _slopeCheckDistance), Color.black);
+        Debug.DrawLine(leftFoot, new Vector3(leftFoot.x, leftFoot.y + _slopeCheckDistance), Color.black);
+        Debug.DrawLine(rightFoot, new Vector3(rightFoot.x, rightFoot.y + _slopeCheckDistance), Color.black);
+
+        // if elses through the raycast hits
+        RaycastHit2D hit = centerHit ? centerHit : (leftHit ? leftHit : rightHit);
+
+
+        if (hit)
+        {
+            // get perpendicular line to slope
+            _slopeNormalPerpendicular = Vector2.Perpendicular(hit.normal).normalized;
+            // angle of slope
+            _slopeDownAngle = Vector2.Angle(hit.normal, Vector2.up);
+
+            if (_slopeDownAngle != _slopeDownAngleOld) { _isOnSlope = true; }
+            //else { _isOnSlope = false; }
+
+            _slopeDownAngleOld = _slopeDownAngle;
+
+
+            // debug
+            Debug.DrawRay(hit.point, _slopeNormalPerpendicular, Color.red);
+            Debug.DrawRay(hit.point, hit.normal, Color.green);
+        }
+    }
+
 
     public bool rf_PlayerGrounded() { return _isGrounded; }
 
@@ -508,7 +578,7 @@ public class PlayerMovement : MonoBehaviour
         #endregion
     }
 
-    //TODO: FIX THIS
+    //TODO: EDGE CORRECTION NOT WORKING PROPERLY, BUGFIX EVENTUALLY
     private void rf_EdgeCorrection()
     {
         // Determine which edge is colliding
@@ -596,6 +666,7 @@ public class PlayerMovement : MonoBehaviour
     private void rf_CollisionChecks()
     {
         rf_IsGrounded();
+        rf_SlopeCheck();
         rf_BumpedHead();
     }
 

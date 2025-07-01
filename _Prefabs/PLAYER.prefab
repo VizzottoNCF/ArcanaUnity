@@ -281,6 +281,7 @@ MonoBehaviour:
   moveStats: {fileID: 11400000, guid: 99c4d0345a84c244a8b9a7ab30eab0a5, type: 2}
   _feetCollider: {fileID: 230810767601159699}
   _bodyCollider: {fileID: 8143717104380973066}
+  _slopeCheckDistance: 1.5
   _cameraFollowGO: {fileID: 3072516082375282318, guid: 65abf8fcfcf3fc54a978e41abd6caecd,
     type: 3}
 --- !u!114 &816846117155205355

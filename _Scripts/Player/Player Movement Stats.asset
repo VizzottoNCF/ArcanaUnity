@@ -23,7 +23,7 @@ MonoBehaviour:
   maxRunSpeed: 15
   GroundLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 4096
   GroundDetectionRayLength: 0.02
   HeadDetectionRayLength: 0.02
   HeadWidth: 0.75
@@ -31,7 +31,7 @@ MonoBehaviour:
   LedgeSnapHorizontalRange: 0.28
   LedgeSnapVerticalThreshold: 0.35
   LedgeSnapVerticalOffset: 0.24
-  JumpHeight: 4
+  JumpHeight: 3
   JumpHeightCompensationFactor: 1.0613
   TimeTillJumpApex: 0.3
   GravityOnReleaseMultiplier: 1.57
