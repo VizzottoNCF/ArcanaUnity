@@ -18,6 +18,9 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Collision Check Variables")]
     [SerializeField] private float _slopeCheckDistance = 0.5f;
+    [SerializeField] private bool _isOnSlope;
+    [SerializeField] private bool _canWalkOnSlope;
+    [SerializeField] private float _maxSlopeAngle = 50f;
     private RaycastHit2D _groundHit;
     private RaycastHit2D _headHit;
     private RaycastHit2D _edgeDetectionLeft;
@@ -28,9 +31,10 @@ public class PlayerMovement : MonoBehaviour
     private bool _bumpedHead;   
     private float _slopeDownAngle;
     private float _slopeDownAngleOld;
+    private float _slopeSideAngle;
     private Vector2 _feetColliderSize;
+    private Vector2 _bodyColliderSize;
     private Vector2 _slopeNormalPerpendicular;
-    [SerializeField] private bool _isOnSlope;
 
 
     [Header("Jump Variables")]
@@ -61,6 +65,11 @@ public class PlayerMovement : MonoBehaviour
     private float _upHeldTimer = 0f;
     private float _downHeldTimer = 0f;
 
+    [Header("Debug")]
+    [SerializeField] private bool SlowDownTime = false;
+    [SerializeField] private bool NoGravity = false;
+
+
     #endregion
 
     private void Start()
@@ -70,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
 
         _feetColliderSize = _feetCollider.bounds.size;
+        _bodyColliderSize = _bodyCollider.bounds.size;
 
         _cameraFollowObject = _cameraFollowGO.GetComponent<CameraFollowObject>();
         _fallSpeedYDampingChangeThreshold = CameraManager.instance._fallSpeedYDampingChangeTreshold;
@@ -78,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         // DEBUG: SLOW DOWN TIME
-        if (Input.GetKey(KeyCode.L) && moveStats.SlowDownTime) { Time.timeScale = 0.2f; } else { Time.timeScale = 1f; }
+        if (SlowDownTime) { Time.timeScale = 0.2f; } else { Time.timeScale = 1f; }
 
         // look up and down
         if (InputManager.Movement.x == 0 && InputManager.Movement.y > 0) { _upHeldTimer += Time.deltaTime; } else { _upHeldTimer = 0f; }
@@ -158,21 +168,22 @@ public class PlayerMovement : MonoBehaviour
             rf_TurnCheck(moveInput);
 
             Vector2 targetVelocity = Vector2.zero;
-            if (!_isOnSlope)
+
+            if (_isOnSlope && _isGrounded && !_isJumping && _canWalkOnSlope) // slope specific movement, due to Y speed
+            {
+                if (InputManager.runIsHeld) { targetVelocity = new Vector2(moveStats.maxRunSpeed * _slopeNormalPerpendicular.x * -moveInput.x, moveStats.maxRunSpeed * _slopeNormalPerpendicular.y * -moveInput.x); }
+                else { targetVelocity = new Vector2(moveStats.maxWalkSpeed * _slopeNormalPerpendicular.x * -moveInput.x, moveStats.maxWalkSpeed * _slopeNormalPerpendicular.y * -moveInput.x); }
+            }
+            else // normal and airborne movement
             {
                 if (InputManager.runIsHeld) { targetVelocity = new Vector2(moveInput.x, 0f) * moveStats.maxRunSpeed; }
                 else { targetVelocity = new Vector2(moveInput.x, 0f) * moveStats.maxWalkSpeed; }
             }
-            else if (_isOnSlope)
-            {
-                // TODO: FIX THE targetVelocity VARIABLE TO PROPERLY ADAPT TO SLOPES, CURRENT SETUP ISN'T WORKING PROPERLY
-                if (InputManager.runIsHeld) { targetVelocity = new Vector2(moveStats.maxRunSpeed * _slopeNormalPerpendicular.x * -moveInput.x, moveStats.maxRunSpeed * _slopeNormalPerpendicular.y * -moveInput.x); }
-                else { targetVelocity = new Vector2(moveStats.maxWalkSpeed * _slopeNormalPerpendicular.x * -moveInput.x, moveStats.maxWalkSpeed * _slopeNormalPerpendicular.y * -moveInput.x); }
-            }
 
             // lerp move velocity from current to target velocity and then apply to rigidbody
             _moveVelocity = Vector2.Lerp(_moveVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
-            _rb.linearVelocity = new Vector2(_moveVelocity.x, _rb.linearVelocity.y);
+            if (_isOnSlope && _isGrounded) { _rb.linearVelocity = new Vector2(_moveVelocity.x, _moveVelocity.y); } // make it slope only, else, receiving Y value breaks jumping
+            else { _rb.linearVelocity = new Vector2(_moveVelocity.x, _rb.linearVelocity.y); } // normal movement
         }
 
         // if there is no movement input, change move velocity to nothing
@@ -394,7 +405,7 @@ public class PlayerMovement : MonoBehaviour
         // NORMAL GRAVITY WHILE FALLING 
         if (!_isGrounded && !_isJumping)
         {
-            if (_isFalling)
+            if (!_isFalling)
             {
                 _isFalling = true;
             }
@@ -402,10 +413,20 @@ public class PlayerMovement : MonoBehaviour
             VerticalVelocity += moveStats.Gravity * Time.fixedDeltaTime;
         }
 
+        // STOP GRAVITY WHEN ON GROUND
+        else if (_isGrounded && !_isJumping)
+        {
+            VerticalVelocity = 0.0f;
+        }
+
+        //print(VerticalVelocity);
+
         // CLAMP FALL SPEED APPLY TO THE RIGID BODY VELOCITY
         VerticalVelocity = Mathf.Clamp(VerticalVelocity, -moveStats.MaxFallSpeed, 50f);
 
-        _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, VerticalVelocity);
+        // DEBUG: REMOVE GRAVITY
+        if (NoGravity) { _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, 0.0f); }
+        else { _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, VerticalVelocity); }
     }
 
     public bool rf_IsFalling() { return _isFalling; }
@@ -458,15 +479,36 @@ public class PlayerMovement : MonoBehaviour
 
     private void rf_SlopeCheck()
     {
-        Vector2 checkPos = transform.position - new Vector3(0.0f, _feetColliderSize.y / 2);
+        Vector2 checkPos = transform.position - new Vector3(0.0f, (_bodyColliderSize.y + _feetColliderSize.y) / 2);
 
         // TODO: call rf_SlopeCheckHorizontal() once its complete
+        rf_SlopeCheckHorizontal(checkPos);
         rf_SlopeCheckVertical(checkPos);
     }
 
     private void rf_SlopeCheckHorizontal(Vector2 checkPos)
     {
-        // TODO: finish slope horizontal logic
+        // raycast for front and back
+        RaycastHit2D slopeHitFront = Physics2D.Raycast(checkPos, transform.right, _slopeCheckDistance, moveStats.GroundLayer);
+        RaycastHit2D slopeHitBack = Physics2D.Raycast(checkPos, -transform.right, _slopeCheckDistance, moveStats.GroundLayer);
+
+
+        // if elses through the raycast hits
+        RaycastHit2D hit = slopeHitFront ? slopeHitFront : (slopeHitBack ? slopeHitBack : default);
+
+        if (hit) // if it hits a slope, sets the slope angle
+        {
+            _isOnSlope = true;
+            _slopeSideAngle = Vector2.Angle(hit.normal, Vector2.up);
+        }
+        else // if no slope is hit, sets _isOnSlope to false
+        {
+            _slopeSideAngle = 0.0f;
+            _isOnSlope = false;
+        }
+
+
+
     }
     private void rf_SlopeCheckVertical(Vector2 checkPos)
     {
@@ -492,11 +534,16 @@ public class PlayerMovement : MonoBehaviour
         {
             // get perpendicular line to slope
             _slopeNormalPerpendicular = Vector2.Perpendicular(hit.normal).normalized;
+
             // angle of slope
             _slopeDownAngle = Vector2.Angle(hit.normal, Vector2.up);
 
+
+            //print("Perp: " + _slopeNormalPerpendicular + " | Angle: " + _slopeDownAngle);
+
+
             if (_slopeDownAngle != _slopeDownAngleOld) { _isOnSlope = true; }
-            //else { _isOnSlope = false; }
+            else if (_slopeDownAngle == 0.0f) { _isOnSlope = false; }
 
             _slopeDownAngleOld = _slopeDownAngle;
 
@@ -505,6 +552,10 @@ public class PlayerMovement : MonoBehaviour
             Debug.DrawRay(hit.point, _slopeNormalPerpendicular, Color.red);
             Debug.DrawRay(hit.point, hit.normal, Color.green);
         }
+
+        // check if slope beneath feet is walkable
+        if (_slopeDownAngle > _maxSlopeAngle) { _canWalkOnSlope = false; }
+        else { _canWalkOnSlope = true; }
     }
 
 

@@ -76,7 +76,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.12556075, y: 0.0786967}
+  m_Size: {x: 0.2016845, y: 0.0786967}
   m_EdgeRadius: 0
 --- !u!1 &7183519026808374102
 GameObject:
@@ -163,7 +163,7 @@ GameObject:
   m_Layer: 0
   m_Name: PLAYER
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -281,9 +281,14 @@ MonoBehaviour:
   moveStats: {fileID: 11400000, guid: 99c4d0345a84c244a8b9a7ab30eab0a5, type: 2}
   _feetCollider: {fileID: 230810767601159699}
   _bodyCollider: {fileID: 8143717104380973066}
-  _slopeCheckDistance: 1.5
+  _slopeCheckDistance: 0.5
+  _isOnSlope: 0
+  _canWalkOnSlope: 0
+  _maxSlopeAngle: 50
   _cameraFollowGO: {fileID: 3072516082375282318, guid: 65abf8fcfcf3fc54a978e41abd6caecd,
     type: 3}
+  SlowDownTime: 0
+  NoGravity: 0
 --- !u!114 &816846117155205355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,7 +330,7 @@ Transform:
   m_GameObject: {fileID: 9188332240136358452}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.315, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
