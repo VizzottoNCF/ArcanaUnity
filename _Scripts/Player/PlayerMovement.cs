@@ -294,6 +294,7 @@ public class PlayerMovement : MonoBehaviour
             _isFastFalling = false;
         }
 
+        // TBH, I HAVE NO IDEA IF THIS WORKS
         // LANDED
         if ((_isJumping || _isFalling) && _isGrounded && VerticalVelocity <= 0f)
         {

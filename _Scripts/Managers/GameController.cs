@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    [Header("Unlockables")]
+
+
     [Header("Stats")]
     public static GameController Instance;
     public bool CanPlayerMove = true;
@@ -16,7 +19,7 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         // singleton instance
-        if (Instance == null) { Instance = this; }
+        if (Instance == null) { Instance = this; DontDestroyOnLoad(gameObject); } else { Destroy(gameObject); }
 
         // grabs player spawn point in level and rigidbody component
         _startPos = transform.position;
