@@ -24,7 +24,7 @@ public class SkillTree : MonoBehaviour
 
     private void Start()
     {
-        _skillPoint = 20;
+        _skillPoint = 10;
 
         _skillLevel = new int[6];
         _skillCap = new[] { 1, 5, 5, 2, 10, 10 };

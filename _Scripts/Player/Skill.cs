@@ -28,11 +28,11 @@ public class Skill : MonoBehaviour
         // color.yellow if skill is maxed, color.green if able to buy, else color.white
         GetComponent<Image>().color = skill_level >= skill_cap ? Color.yellow : skill_point > 0 ? Color.green : Color.white;
 
-        foreach (var connectedSkill in _connectedSkills) 
-        {
-            skill_list[connectedSkill].GetComponent<Button>().interactable = (skill_level > 0);
-            connec_list[connectedSkill].SetActive(skill_level > 0);
-        }
+        //foreach (var connectedSkill in _connectedSkills)
+        //{
+        //    skill_list[connectedSkill].GetComponent<Button>().interactable = (skill_level > 0);
+        //    connec_list[connectedSkill].SetActive(skill_level > 0);
+        //}
     }
 
     public void rf_BuySkill()

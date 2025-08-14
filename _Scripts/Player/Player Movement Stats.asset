@@ -20,7 +20,7 @@ MonoBehaviour:
   groundDeceleration: 20
   airAcceleration: 8.4
   airDeceleration: 5
-  maxRunSpeed: 15
+  maxRunSpeed: 31
   GroundLayer:
     serializedVersion: 2
     m_Bits: 4096
@@ -31,7 +31,7 @@ MonoBehaviour:
   LedgeSnapHorizontalRange: 0.28
   LedgeSnapVerticalThreshold: 0.35
   LedgeSnapVerticalOffset: 0.24
-  JumpHeight: 3
+  JumpHeight: 3.5
   JumpHeightCompensationFactor: 1.0613
   TimeTillJumpApex: 0.3
   GravityOnReleaseMultiplier: 1.57
