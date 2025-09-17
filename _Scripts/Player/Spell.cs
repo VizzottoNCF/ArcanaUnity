@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Spell : ScriptableObject
 {
+    [Header("Base Spell Config")]
     [SerializeField] private new string name;
     [SerializeField] private int _spellLevel;
     [SerializeField] private float _cooldownTime;

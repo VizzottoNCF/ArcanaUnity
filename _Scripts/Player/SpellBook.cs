@@ -19,14 +19,22 @@ public class SpellBook : MonoBehaviour
 
     [Header("Spell State / Bindings")]
     [SerializeField] private re_SpellState _state = re_SpellState.READY;
-    [SerializeField] private InputAction _spellInput;
+    [SerializeField] private bool _spellInputPress;
+    [SerializeField] private bool _spellInputHeld;
+    [SerializeField] private bool _spellInputRelease;
 
     void Update()
     {
+        // load spell input
+        _spellInputPress = InputManager.spellWasPressed;
+        _spellInputRelease = InputManager.spellWasReleased;
+        _spellInputHeld = InputManager.spellIsHeld;
+
+        // state for spell availability
         switch (_state)
         {
             case re_SpellState.READY:
-                if (_spellInput.WasPressedThisFrame())
+                if (_spellInputRelease)
                 {
                     _spell.rf_Activate(gameObject);
                     _state = re_SpellState.ACTIVE;
@@ -73,5 +81,4 @@ public class SpellBook : MonoBehaviour
         _activeTime = NewSpell.rf_ReadActiveTime();
         _cooldownTime = NewSpell.rf_ReadCooldownTime();
     }
-
 }

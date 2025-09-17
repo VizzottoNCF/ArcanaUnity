@@ -7,14 +7,25 @@ public class GameController : MonoBehaviour
 
 
     [Header("Stats")]
+    [SerializeField] public re_PlayerStates PlayerState = re_PlayerStates.Platform;
     public static GameController Instance;
     public bool CanPlayerMove = true;
     public bool IsPlayerGrounded = true;
+    public bool IsPlayerRecoilingX = false;
+    public bool IsPlayerRecoilingY = false;
 
     [Header("References")]
     [SerializeField] private GameObject _SpriteReference;
     [SerializeField] private Rigidbody2D _rb;
     private Vector2 _startPos;
+
+    public enum re_PlayerStates
+    {
+        Platform,
+        Attack,
+        Spell
+    }
+
 
     private void Awake()
     {

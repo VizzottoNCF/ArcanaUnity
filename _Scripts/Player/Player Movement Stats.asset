@@ -33,13 +33,13 @@ MonoBehaviour:
   LedgeSnapVerticalOffset: 0.24
   JumpHeight: 3.5
   JumpHeightCompensationFactor: 1.0613
-  TimeTillJumpApex: 0.3
+  TimeTillJumpApex: 0.4
   GravityOnReleaseMultiplier: 1.57
   MaxFallSpeed: 26
   NumberOfJumpsAllowed: 2
   TimeForUpwardsCancel: 0.027
   ApexThreshold: 0.955
-  ApexHangTime: 0.045
+  ApexHangTime: 0.05
   JumpBufferTime: 0.125
   JumpCoyoteTime: 0.125
   ShowWalkJumpArc: 0

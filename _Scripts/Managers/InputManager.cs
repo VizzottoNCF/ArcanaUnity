@@ -13,6 +13,12 @@ public class InputManager : MonoBehaviour
     public static bool moveLeftWasReleased;
     public static bool moveRightWasReleased;
     public static bool jumpWasPressed;
+    public static bool spellWasPressed;
+    public static bool spellWasReleased;
+    public static bool spellIsHeld;
+    public static bool attackWasPressed;
+    public static bool attackWasReleased;
+    public static bool attackIsHeld;
     public static bool jumpIsHeld;
     public static bool jumpWasReleased;
     public static bool runIsHeld;
@@ -21,7 +27,9 @@ public class InputManager : MonoBehaviour
     private InputAction _moveAction;
     private InputAction _jumpAction;
     private InputAction _runAction;
+    private InputAction _spellAction;
     private InputAction _DialogSkipAction;
+    private InputAction _attackAction;
 
     private void Awake()
     {
@@ -30,6 +38,8 @@ public class InputManager : MonoBehaviour
         _moveAction = PlayerInput.actions["Move"];
         _jumpAction = PlayerInput.actions["Jump"];
         _runAction = PlayerInput.actions["Run"];
+        _spellAction = PlayerInput.actions["Spell"];
+        _attackAction = PlayerInput.actions["Attack"];
         _DialogSkipAction = PlayerInput.actions["DialogSkip"];
 
     }
@@ -46,14 +56,25 @@ public class InputManager : MonoBehaviour
         _previousHorizontalInput = Movement.x;
         _previousVerticalInput = Movement.y;
 
+        // spell actions
+        spellWasPressed = _spellAction.WasPressedThisFrame();
+        spellWasReleased = _spellAction.WasReleasedThisFrame();
+        spellIsHeld = _spellAction.IsPressed();
+        
+        // attack actions
+        attackWasPressed = _attackAction.WasPressedThisFrame();
+        attackWasReleased = _attackAction.WasReleasedThisFrame();
+        attackIsHeld = _attackAction.IsPressed();
 
         // jump actions
         jumpWasPressed = _jumpAction.WasPressedThisFrame();
         jumpIsHeld = _jumpAction.IsPressed();
         jumpWasReleased = _jumpAction.WasReleasedThisFrame();
 
+
         // run action
         runIsHeld = _runAction.IsPressed();
+
 
         // dialog action
         DialogSkipPressed = _DialogSkipAction.WasPressedThisFrame();

@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Collider2D _bodyCollider;
 
     private Rigidbody2D _rb;
+    private PlayerAttack _pAttk;
 
     [Header("Movement Variables")]
     private Vector2 _moveVelocity;
@@ -28,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     private RaycastHit2D _bodyDetectionLeft;
     private RaycastHit2D _bodyDetectionRight;
     private bool _isGrounded;
-    private bool _bumpedHead;   
+    private bool _bumpedHead;
     private float _slopeDownAngle;
     private float _slopeDownAngleOld;
     private float _slopeSideAngle;
@@ -77,6 +78,7 @@ public class PlayerMovement : MonoBehaviour
         _isFacingRight = true;
 
         _rb = GetComponent<Rigidbody2D>();
+        _pAttk = GetComponent<PlayerAttack>();
 
         _feetColliderSize = _feetCollider.bounds.size;
         _bodyColliderSize = _bodyCollider.bounds.size;
@@ -129,6 +131,7 @@ public class PlayerMovement : MonoBehaviour
         rf_CollisionChecks();
         rf_Jump();
         rf_LedgeAssist();
+        _pAttk.rf_Recoil();
 
         if (_isGrounded && GameController.Instance.CanPlayerMove)
         {
@@ -139,13 +142,7 @@ public class PlayerMovement : MonoBehaviour
             rf_Move(moveStats.airAcceleration, moveStats.airDeceleration, InputManager.Movement);
         }
 
-        // TODO: DELETE OR SUBSTITUTE THIS
-        // logic for when you're in a moving object
-        //if (_currentMovingPlatform != null)
-        //{
-        //    // adds the amount the object has moved onto the players position
-        //    transform.position += _currentMovingPlatform.DeltaPosition;
-        //}
+
 
 
         // stop ice slide if you can no longer control player
@@ -226,7 +223,10 @@ public class PlayerMovement : MonoBehaviour
             CameraManager.instance.rf_TurnCameraZOffsetAround();
         }
     }
-
+    /// <summary>
+    /// Returns True if facing Right, and False if facing Left
+    /// </summary>
+    /// <returns>Bool</returns>
     public bool rf_CheckDirection() { return _isFacingRight; }
 
     #endregion
@@ -457,10 +457,7 @@ public class PlayerMovement : MonoBehaviour
 
         GameController.Instance.IsPlayerGrounded = _isGrounded;
 
-        // TODO: DO SOMETHING WITH THIS MOVING PLATFORM LOGIC, CURRENTLY UNUSED
-        // if player is grounded on a moving platform/wall, he will be set as a child object to move along with it, whenever he leaves, he is set free
-        //if (_groundHit.collider != null && _groundHit.collider.gameObject.CompareTag("MovingPlatform")) { _currentMovingPlatform = _groundHit.collider.gameObject.GetComponent<MovingPlatform>(); }
-        //else { _currentMovingPlatform = null; }
+
 
 
 
@@ -482,7 +479,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 checkPos = transform.position - new Vector3(0.0f, (_bodyColliderSize.y + _feetColliderSize.y) / 2);
 
-        // TODO: call rf_SlopeCheckHorizontal() once its complete
         rf_SlopeCheckHorizontal(checkPos);
         rf_SlopeCheckVertical(checkPos);
     }
@@ -559,7 +555,10 @@ public class PlayerMovement : MonoBehaviour
         else { _canWalkOnSlope = true; }
     }
 
-
+    /// <summary>
+    /// Returns player _isGrounded variable
+    /// </summary>
+    /// <returns></returns>
     public bool rf_PlayerGrounded() { return _isGrounded; }
 
     private void rf_BumpedHead()

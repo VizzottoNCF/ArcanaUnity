@@ -16,3 +16,10 @@ MonoBehaviour:
   _spellLevel: 1
   _cooldownTime: 1
   _activeTime: 1
+  _damage: 0
+  _damageType: 0
+  _projectile: {fileID: 7156124477538424209, guid: 732d5061aada6f245aedf58d6537d4eb,
+    type: 3}
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 2097152
