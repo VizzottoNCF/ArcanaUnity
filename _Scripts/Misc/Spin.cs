@@ -7,6 +7,7 @@ public class spin : MonoBehaviour
     [SerializeField] private bool GyroSpin;
     [SerializeField] private bool LateralSpin;
     [SerializeField][Range(-1,1)] public int SpinDirection;
+    [SerializeField] private float SpinSpeed = 1f;
     private Quaternion _quat;
     private Vector3 _initialPos;
     private float _timer = 0f;
@@ -20,7 +21,7 @@ public class spin : MonoBehaviour
     {
         if (GyroSpin)
         {
-            _quat *= Quaternion.Euler(0, SpinDirection, SpinDirection);
+            _quat *= Quaternion.Euler(0, SpinDirection * SpinSpeed, SpinDirection * SpinSpeed);
         }
 
         if (FloatSpin)
@@ -28,12 +29,12 @@ public class spin : MonoBehaviour
             _timer += Time.deltaTime;
 
             float offsetY = Mathf.Sin(_timer * Mathf.PI * 2) * 0.5f;
-            transform.position = new Vector3(_initialPos.x, _initialPos.y + offsetY, _initialPos.z);
+            transform.position = new Vector3(_initialPos.x, (_initialPos.y + offsetY) * SpinSpeed, _initialPos.z);
         }
 
         if (LateralSpin)
         {
-            _quat *= Quaternion.Euler(0, 0, SpinDirection);
+            _quat *= Quaternion.Euler(0, 0, SpinDirection * SpinSpeed);
         }
 
         // makes current quaternion into rotation

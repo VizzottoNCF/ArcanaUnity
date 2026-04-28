@@ -7,26 +7,19 @@ public class GameController : MonoBehaviour
 
 
     [Header("Stats")]
-    [SerializeField] public re_PlayerStates PlayerState = re_PlayerStates.Platform;
     public static GameController Instance;
     public bool CanPlayerMove = true;
+    public bool InKnockback = false;
     public bool IsPlayerGrounded = true;
-    public bool IsPlayerRecoilingX = false;
-    public bool IsPlayerRecoilingY = false;
+    public bool IsDead = false;
+    public bool isTimeSlowed = false;
 
     [Header("References")]
     [SerializeField] private GameObject _SpriteReference;
     [SerializeField] private Rigidbody2D _rb;
     private Vector2 _startPos;
 
-    public enum re_PlayerStates
-    {
-        Platform,
-        Attack,
-        Spell
-    }
-
-
+    
     private void Awake()
     {
         // singleton instance
@@ -39,14 +32,13 @@ public class GameController : MonoBehaviour
 
     // call this function on health script when necessary
     [ContextMenu("Cause Player Death")]
-    public void rf_CausePlayerDeath() { rf_PlayerDeath(); }
-
-    private void rf_PlayerDeath()
+    public void rf_PlayerDeath()
     {
+        IsDead = true;
         // TODO: effects on player death
 
         // respawns 
-        rf_Respawn();
+        //rf_Respawn();
     }
 
     private void rf_Respawn()

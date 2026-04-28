@@ -12,6 +12,7 @@ public class CameraManager : MonoBehaviour
     [Header("Controls for lerping the Y Damping during player jump/fall")]
     [SerializeField] private float _fallPanAmount = 0.25f;
     [SerializeField] private float _fallYPanTime = 0.35f;
+    public float startOffsetAmount;
     public float _fallSpeedYDampingChangeTreshold = -15f;
 
     public bool IsLerpingYDamping { get; private set; }
@@ -32,6 +33,7 @@ public class CameraManager : MonoBehaviour
     private Coroutine _lerpYOffsetCoroutineBack;
     [SerializeField] private float _YOffsetTime = 0.35f;
 
+    public Transform camTransform { get { return _currentCamera.transform; } }
     public CinemachineCamera rCC_GetCurrentCamera() { return _currentCamera; }
 
     private float _normYPanAmount;
@@ -96,19 +98,19 @@ public class CameraManager : MonoBehaviour
         IsLerpingYOffset = true;
 
         // grab stating offset amount
-        float startOffsetAmount = _PositionComposer.TargetOffset.y;
-        float endOffsetAmount;
-            endOffsetAmount = _PositionComposer.TargetOffset.y + variation;
-            float elapsedTime = 0f;
-            while (elapsedTime < _YOffsetTime)
-            {
-                elapsedTime += Time.deltaTime;
+        float startOffset = startOffsetAmount;
+        float endOffset = startOffset + variation;
 
-                float lerpedOffsetAmount = Mathf.Lerp(startOffsetAmount, endOffsetAmount, (elapsedTime / _YOffsetTime));
-                _PositionComposer.TargetOffset.y = lerpedOffsetAmount;
+        float elapsedTime = 0f;
+        while (elapsedTime < _YOffsetTime)
+        {
+            elapsedTime += Time.deltaTime;
 
-                yield return null;
-            }
+            float lerpedOffsetAmount = Mathf.Lerp(startOffset, endOffset, (elapsedTime / _YOffsetTime));
+            _PositionComposer.TargetOffset.y = lerpedOffsetAmount;
+
+            yield return null;
+        }
     }
 
     public void rf_LerpYOffsetToNormal()
@@ -118,15 +120,15 @@ public class CameraManager : MonoBehaviour
     private IEnumerator rIE_LerpYOffsetToNormal()
     {
         // grab stating offset amount
-        float startOffsetAmount = _PositionComposer.TargetOffset.y;
-        float endOffsetAmount = 1.5f;
+        float startOffset = _PositionComposer.TargetOffset.y;
+        float endOffset = startOffsetAmount;
 
         float elapsedTime = 0f;
         while (elapsedTime < _YOffsetTime)
         {
             elapsedTime += Time.deltaTime;
 
-            float lerpedOffsetAmount = Mathf.Lerp(startOffsetAmount, endOffsetAmount, (elapsedTime / _YOffsetTime));
+            float lerpedOffsetAmount = Mathf.Lerp(startOffset, endOffset, (elapsedTime / _YOffsetTime));
             _PositionComposer.TargetOffset.y = lerpedOffsetAmount;
 
             yield return null;
@@ -176,7 +178,7 @@ public class CameraManager : MonoBehaviour
         IsLerpingYDamping = false;
     }
     #endregion
-
+    /*
     #region Pan Camera
 
     public void rf_PanCameraOnContact(float panDistance, float panTime, re_PanDirection panDirection, bool panToStartingPos)
@@ -235,7 +237,7 @@ public class CameraManager : MonoBehaviour
         }
     }
     #endregion
-
+    */
     #region Swap Cameras
 
     public void rf_SwapCamera(CinemachineCamera cameraFromLeft, CinemachineCamera cameraFromRight, Vector2 triggerExitDirection)

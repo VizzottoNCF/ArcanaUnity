@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9c833c4f9372ec4aab9ce977ebd07bd, type: 3}
+  m_Name: MagicMissile2
+  m_EditorClassIdentifier: 
+  name: Magic Missile
+  description: 
+  _icon: {fileID: 21300000, guid: ebb68613e318cb5469d943ff3f66f84a, type: 3}
+  manaCost: 6
+  _spellType: 1
+  _spellLevel: 2
+  _cooldownTime: 0.4
+  _activeTime: 1.2
+  _damage: 3
+  _damageType: 2
+  _projectile: {fileID: 7156124477538424209, guid: 732d5061aada6f245aedf58d6537d4eb,
+    type: 3}
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 524288
+  _shootForce: 20

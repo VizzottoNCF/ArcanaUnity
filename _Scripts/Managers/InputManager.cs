@@ -12,13 +12,16 @@ public class InputManager : MonoBehaviour
     public static bool moveDownWasReleased;
     public static bool moveLeftWasReleased;
     public static bool moveRightWasReleased;
-    public static bool jumpWasPressed;
-    public static bool spellWasPressed;
-    public static bool spellWasReleased;
-    public static bool spellIsHeld;
+    public static bool spellLeftWasPressed;
+    public static bool spellLeftWasReleased;
+    public static bool spellLeftIsHeld;
+    public static bool spellRightWasPressed;
+    public static bool spellRightWasReleased;
+    public static bool spellRightIsHeld;
     public static bool attackWasPressed;
     public static bool attackWasReleased;
     public static bool attackIsHeld;
+    public static bool jumpWasPressed;
     public static bool jumpIsHeld;
     public static bool jumpWasReleased;
     public static bool runIsHeld;
@@ -27,7 +30,8 @@ public class InputManager : MonoBehaviour
     private InputAction _moveAction;
     private InputAction _jumpAction;
     private InputAction _runAction;
-    private InputAction _spellAction;
+    private InputAction _spellLeftAction;
+    private InputAction _spellRightAction;
     private InputAction _DialogSkipAction;
     private InputAction _attackAction;
 
@@ -38,7 +42,8 @@ public class InputManager : MonoBehaviour
         _moveAction = PlayerInput.actions["Move"];
         _jumpAction = PlayerInput.actions["Jump"];
         _runAction = PlayerInput.actions["Run"];
-        _spellAction = PlayerInput.actions["Spell"];
+        _spellLeftAction = PlayerInput.actions["SpellLeft"];
+        _spellRightAction = PlayerInput.actions["SpellRight"];
         _attackAction = PlayerInput.actions["Attack"];
         _DialogSkipAction = PlayerInput.actions["DialogSkip"];
 
@@ -57,10 +62,14 @@ public class InputManager : MonoBehaviour
         _previousVerticalInput = Movement.y;
 
         // spell actions
-        spellWasPressed = _spellAction.WasPressedThisFrame();
-        spellWasReleased = _spellAction.WasReleasedThisFrame();
-        spellIsHeld = _spellAction.IsPressed();
-        
+        spellLeftWasPressed = _spellLeftAction.WasPressedThisFrame();
+        spellLeftWasReleased = _spellLeftAction.WasReleasedThisFrame();
+        spellLeftIsHeld = _spellLeftAction.IsPressed();
+
+        spellRightWasPressed = _spellRightAction.WasPressedThisFrame();
+        spellRightWasReleased = _spellRightAction.WasReleasedThisFrame();
+        spellRightIsHeld = _spellRightAction.IsPressed();
+
         // attack actions
         attackWasPressed = _attackAction.WasPressedThisFrame();
         attackWasReleased = _attackAction.WasReleasedThisFrame();

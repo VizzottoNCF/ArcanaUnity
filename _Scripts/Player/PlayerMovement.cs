@@ -9,9 +9,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private PlayerMovementStats moveStats;
     [SerializeField] private Collider2D _feetCollider;
     [SerializeField] private Collider2D _bodyCollider;
+    [SerializeField] private Animator animator;
 
     private Rigidbody2D _rb;
-    private PlayerAttack _pAttk;
 
     [Header("Movement Variables")]
     private Vector2 _moveVelocity;
@@ -78,8 +78,7 @@ public class PlayerMovement : MonoBehaviour
         _isFacingRight = true;
 
         _rb = GetComponent<Rigidbody2D>();
-        _pAttk = GetComponent<PlayerAttack>();
-
+        
         _feetColliderSize = _feetCollider.bounds.size;
         _bodyColliderSize = _bodyCollider.bounds.size;
 
@@ -89,6 +88,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (GameController.Instance.IsDead) { return; }
+
         // DEBUG: SLOW DOWN TIME
         if (SlowDownTime) { Time.timeScale = 0.2f; } else { Time.timeScale = 1f; }
 
@@ -124,14 +125,18 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         else { Debug.LogWarning("Camera Manager is Null"); }
+
+        animator.SetBool("isGrounded", _isGrounded);
     }
 
     private void FixedUpdate()
     {
+        if (GameController.Instance.IsDead) { return; }
+
         rf_CollisionChecks();
         rf_Jump();
         rf_LedgeAssist();
-        _pAttk.rf_Recoil();
+        //_pAttk.rf_Recoil();
 
         if (_isGrounded && GameController.Instance.CanPlayerMove)
         {
@@ -144,9 +149,8 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-
         // stop ice slide if you can no longer control player
-        if (_isGrounded && !GameController.Instance.CanPlayerMove) { _rb.linearVelocityX = 0; }
+        if (_isGrounded && !GameController.Instance.CanPlayerMove && !GameController.Instance.InKnockback) { _rb.linearVelocityX = 0; }
     }
 
     #region Movement
@@ -161,6 +165,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (moveInput != Vector2.zero)
         {
+            if (moveInput.x != 0) { animator.SetBool("isRunning", true); } // set running animation
+
             // first check if player needs to turn around
             rf_TurnCheck(moveInput);
 
@@ -181,13 +187,16 @@ public class PlayerMovement : MonoBehaviour
             _moveVelocity = Vector2.Lerp(_moveVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
             if (_isOnSlope && _isGrounded) { _rb.linearVelocity = new Vector2(_moveVelocity.x, _moveVelocity.y); } // make it slope only, else, receiving Y value breaks jumping
             else { _rb.linearVelocity = new Vector2(_moveVelocity.x, _rb.linearVelocity.y); } // normal movement
-        }
+        } 
+        
 
         // if there is no movement input, change move velocity to nothing
-        else if (moveInput == Vector2.zero)
+        else
         {
             _moveVelocity = Vector2.Lerp(_moveVelocity, Vector2.zero, deceleration * Time.fixedDeltaTime);
             _rb.linearVelocity = new Vector2(_moveVelocity.x, _rb.linearVelocity.y);
+
+            animator.SetBool("isRunning", false); // stop running animation            
         }
 
     }

@@ -16,7 +16,6 @@ public class AttackSpell : Spell
         // gets starting point for spell
         _firePoint = GameObject.Find("FirePoint").transform;
 
-
         // spawn attack gameobject and give attributes
         GameObject bullet = Instantiate(_projectile, _firePoint.position, _firePoint.rotation);
         bullet.GetComponent<DealDamage>().rf_ReceiveAttributes(_damage, _damageType, _targetLayer);
