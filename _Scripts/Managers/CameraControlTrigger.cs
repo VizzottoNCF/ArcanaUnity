@@ -19,6 +19,12 @@ public class CameraControlTrigger : MonoBehaviour
 
     private void Update()
     {
+        if (_confiner2D != null && _confiner2D.BoundingShape2D == _col2d)
+        {
+            bool hit = _col2d.bounds.Contains(GameObject.FindGameObjectWithTag("Player").transform.position);
+            if (!hit) { _confiner2D.BoundingShape2D = null; }
+        }
+        
         if (originalScene != SceneManager.GetActiveScene().name) { Destroy(gameObject); }
         else { return; }
     }

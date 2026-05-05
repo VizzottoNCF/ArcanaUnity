@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10fc1ccb296a1294198877d7bfa4afe0, type: 3}
+  m_Name: Bushy
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyConfig
+  maxHealth: 30
+  turnThreshold: 1
+  PhysicalResistance: 0
+  MagicalResistance: 0
+  FireResistance: -5
+  ElectricResistance: 1
+  IceResistance: -2
+  patrolSpeed: 2.4
+  groundCheckDistance: 0.5
+  wallCheckDistance: 0.3
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 12288
+  chaseSpeed: 3.6
+  chaseRange: 15.54
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 1048576
+  meleeAttackCooldown: 3
+  meleeRange: 4.7
+  meleeDamage: 1
+  meleeDamageType: 1
+  rangedAttackCooldown: 4
+  rangedRange: 1.2
+  rangedDamage: 1
+  rangedDamageType: 0
+  chargeAttackForce: 5
+  jumpHeight: 5
+  knockbackForce: 10
+  knockbackDuration: 0.1

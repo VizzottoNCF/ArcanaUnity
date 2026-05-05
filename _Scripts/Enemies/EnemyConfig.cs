@@ -32,6 +32,14 @@ public class EnemyConfig : ScriptableObject
     public float meleeRange = 1.2f;
     public int meleeDamage = 1;
     public re_DamageType meleeDamageType = re_DamageType.None;
+    public float rangedAttackCooldown = 1.5f;
+    public float rangedRange = 1.2f;
+    public int rangedDamage = 1;
+    public re_DamageType rangedDamageType = re_DamageType.None;
+    public float chargeAttackForce = 8f;
+
+    [Header("Jump")]
+    public float jumpHeight = 3f;
 
     [Header("Damaged")]
     public float knockbackForce = 0.2f;

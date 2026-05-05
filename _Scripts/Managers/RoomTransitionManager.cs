@@ -7,21 +7,27 @@ public class RoomTransitionManager : MonoBehaviour
     [SerializeField] private ScreenFader screenFader;
     [SerializeField] private Transform cam;
     private string currentRoom = "";
+    private bool isTransitioning;
     private void Start()
     {
+        ServiceLocator.Register<RoomTransitionManager>(this);
+
         screenFader.StartCoroutine(screenFader.Fade(1, 0, 1.5f));
         EnterRoom("", "");
     }
     public void EnterRoom(string sceneName, string spawnID)
     {
+        if (isTransitioning) { return; }
         StartCoroutine(Transition(sceneName, spawnID));
     }
 
     private IEnumerator Transition(string sceneName, string spawnID)
     {
+        isTransitioning = true;
         GameController.Instance.CanPlayerMove = false;
         GameController.Instance.gameObject.GetComponent<Animator>().SetBool("isRunning", false);
         GameController.Instance.gameObject.GetComponent<Animator>().SetBool("isGrounded", true);
+
         if (!screenFader.isFading) { yield return screenFader.StartCoroutine(screenFader.Fade(0, 1, 0.5f)); }
 
         if (!string.IsNullOrEmpty(currentRoom))
@@ -32,47 +38,36 @@ public class RoomTransitionManager : MonoBehaviour
 
         Scene newScene = SceneManager.GetSceneByName(sceneName);
 
-        if (newScene.IsValid())
-        {
-            SceneManager.SetActiveScene(newScene);
-        }
+        if (newScene.IsValid()) { SceneManager.SetActiveScene(newScene); }
         currentRoom = SceneManager.GetActiveScene().name;
 
+        yield return null;
+        RoomService service = ServiceLocator.Get<RoomService>();
+        SetupRoom(service, spawnID);
+        ResetParallax(service);
 
-        SetupRoom(spawnID);
-        ResetParallax();
+        yield return screenFader.StartCoroutine(screenFader.Fade(1, 0, 0.5f));
 
-
-        yield return screenFader.StartCoroutine(screenFader.Fade(1, 0, 1.5f));
         GameController.Instance.CanPlayerMove = true;
+        isTransitioning = false;
     }
 
-    private void ResetParallax()
+    private void ResetParallax(RoomService service)
     {
-        ParallaxManager pm = FindFirstObjectByType<ParallaxManager>();
-        if (pm != null) { pm.Initialize(CameraManager.instance.camTransform); }
-
-    }
-    private void SetupRoom(string spawnID)
-    {
-        SpawnPoint[] spawns = FindObjectsByType<SpawnPoint>(FindObjectsSortMode.None);
-        SpawnPoint spawnToUse = spawns[0];
-        //Debug.Log(spawnToUse);
-        if (!string.IsNullOrEmpty(spawnID))
+        if (service.parallax != null)
         {
-            foreach (SpawnPoint s in spawns)
-            {
-                if (s.spawnID == spawnID)
-                {
-
-                    spawnToUse = s;
-                    //Debug.Log(spawnToUse);
-                    break;
-                }
-            }
+            ParallaxManager pm = service.parallax;
+            pm.Initialize(CameraManager.instance.camTransform);
         }
+    }
+    private void SetupRoom(RoomService service, string spawnID)
+    {
+        SpawnPoint spawnToUse = service.spawns[0];
+        if (!string.IsNullOrEmpty(spawnID)) { spawnToUse = service.GetSpawn(spawnID); }
+
         transform.position = spawnToUse.transform.position;
         cam.position = spawnToUse.transform.position;
+
     }
 
     private void ChangeSpawn()

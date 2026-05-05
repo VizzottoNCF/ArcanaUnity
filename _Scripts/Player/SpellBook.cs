@@ -15,7 +15,7 @@ public class SpellBook : MonoBehaviour
     private Coroutine regenCoroutine;
 
     [Header("Changing Spells")]
-    [SerializeField] private bool _isChangingSpell = false;
+    public bool _isChangingSpell = false;
     [SerializeField] private int _currentChangingSpellSlot = 0;
     [SerializeField] private bool _isCastingSpell = false;
     [SerializeField] private GameObject _spellChangeGrid;
@@ -24,10 +24,10 @@ public class SpellBook : MonoBehaviour
     [SerializeField] private Image _LeftSpellIcon;
     [SerializeField] private Image _RightSpellIcon;
     [SerializeField] private GameObject _spellButtonPrefab;
-    [SerializeField] private PlayerKnownSpells _playerKnownSpells;
+    public PlayerKnownSpells _playerKnownSpells;
 
     [Header("Equipped Spells")]
-    [SerializeField] private List<Spell> _spell;
+    public List<Spell> _spell;
     [SerializeField] private List<float> _cooldownTime;
     [SerializeField] private List<float> _activeTime;
 
@@ -46,8 +46,10 @@ public class SpellBook : MonoBehaviour
     [SerializeField] private List<bool> _spellInputHeld;
     [SerializeField] private List<bool> _spellInputRelease;
 
+    private void Awake() => ServiceLocator.Register<SpellBook>(this);
     private void Start()
     {
+
         if (_spellInputPress.Count == 0) { _spellInputPress.Add(false); _spellInputPress.Add(false); }
         if (_spellInputHeld.Count == 0) { _spellInputHeld.Add(false); _spellInputHeld.Add(false); }
         if (_spellInputRelease.Count == 0) { _spellInputRelease.Add(false); _spellInputRelease.Add(false); }
@@ -82,7 +84,7 @@ public class SpellBook : MonoBehaviour
         if (_spell[0] != null) { SpellStateMachine(0); }
         if (_spell[1] != null) { SpellStateMachine(1); }
 
-        if (Input.GetKeyDown(KeyCode.K)) { ToggleSpellChangeMenu(); }
+        //if (Input.GetKeyDown(KeyCode.K)) { ToggleSpellChangeMenu(); }
     }
 
     public void UseMana(float amount)

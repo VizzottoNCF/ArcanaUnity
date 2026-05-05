@@ -1,0 +1,442 @@
+fileFormatVersion: 2
+guid: 91b87e7a2a0976a45819c38a9c72073d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4589655187676787889
+    second: "fuma\xE7a_0"
+  - first:
+      213: 5909612551750697419
+    second: "fuma\xE7a_1"
+  - first:
+      213: -2463121524602215159
+    second: "fuma\xE7a_2"
+  - first:
+      213: -6566869981680031307
+    second: "fuma\xE7a_3"
+  - first:
+      213: -2038674843032444038
+    second: "fuma\xE7a_4"
+  - first:
+      213: -7840009637913709820
+    second: "fuma\xE7a_5"
+  - first:
+      213: -2510424057192698041
+    second: "fuma\xE7a_6"
+  - first:
+      213: -7601466593259511648
+    second: "fuma\xE7a_7"
+  - first:
+      213: -3661370939242449650
+    second: "fuma\xE7a_8"
+  - first:
+      213: 6819635644577773977
+    second: "fuma\xE7a_9"
+  - first:
+      213: -7226224938228060296
+    second: "fuma\xE7a_10"
+  - first:
+      213: 5442027690375320009
+    second: "fuma\xE7a_11"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "fuma\xE7a_0"
+      rect:
+        serializedVersion: 2
+        x: 549
+        y: 816
+        width: 192
+        height: 218
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b4f00f731bb1bf30800000000000000
+      internalID: 4589655187676787889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "fuma\xE7a_1"
+      rect:
+        serializedVersion: 2
+        x: 1475
+        y: 974
+        width: 36
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc14a4b2e49230250800000000000000
+      internalID: 5909612551750697419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "fuma\xE7a_2"
+      rect:
+        serializedVersion: 2
+        x: 1509
+        y: 934
+        width: 35
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9056777060c31ddd0800000000000000
+      internalID: -2463121524602215159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "fuma\xE7a_3"
+      rect:
+        serializedVersion: 2
+        x: 1524
+        y: 951
+        width: 40
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b929cf5b8acdd4a0800000000000000
+      internalID: -6566869981680031307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "fuma\xE7a_4"
+      rect:
+        serializedVersion: 2
+        x: 1265
+        y: 904
+        width: 54
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a73a688180c25b3e0800000000000000
+      internalID: -2038674843032444038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "fuma\xE7a_5"
+      rect:
+        serializedVersion: 2
+        x: 1271
+        y: 877
+        width: 35
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 403b380c5c0b23390800000000000000
+      internalID: -7840009637913709820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "fuma\xE7a_6"
+      rect:
+        serializedVersion: 2
+        x: 1329
+        y: 854
+        width: 68
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74f2f6bee9e292dd0800000000000000
+      internalID: -2510424057192698041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "fuma\xE7a_7"
+      rect:
+        serializedVersion: 2
+        x: 1550
+        y: 897
+        width: 24
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a0a4c0686a228690800000000000000
+      internalID: -7601466593259511648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "fuma\xE7a_8"
+      rect:
+        serializedVersion: 2
+        x: 1265
+        y: 787
+        width: 50
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e05f38f8782303dc0800000000000000
+      internalID: -3661370939242449650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "fuma\xE7a_9"
+      rect:
+        serializedVersion: 2
+        x: 1329
+        y: 818
+        width: 21
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99976ac9c7634ae50800000000000000
+      internalID: 6819635644577773977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "fuma\xE7a_10"
+      rect:
+        serializedVersion: 2
+        x: 1343
+        y: 747
+        width: 26
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87fe8d174ba47bb90800000000000000
+      internalID: -7226224938228060296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "fuma\xE7a_11"
+      rect:
+        serializedVersion: 2
+        x: 565
+        y: 674
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c119aee957f58b40800000000000000
+      internalID: 5442027690375320009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      "fuma\xE7a_0": 4589655187676787889
+      "fuma\xE7a_1": 5909612551750697419
+      "fuma\xE7a_10": -7226224938228060296
+      "fuma\xE7a_11": 5442027690375320009
+      "fuma\xE7a_2": -2463121524602215159
+      "fuma\xE7a_3": -6566869981680031307
+      "fuma\xE7a_4": -2038674843032444038
+      "fuma\xE7a_5": -7840009637913709820
+      "fuma\xE7a_6": -2510424057192698041
+      "fuma\xE7a_7": -7601466593259511648
+      "fuma\xE7a_8": -3661370939242449650
+      "fuma\xE7a_9": 6819635644577773977
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

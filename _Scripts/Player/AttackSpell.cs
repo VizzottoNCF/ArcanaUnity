@@ -1,9 +1,9 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Attack Spell")]
+[CreateAssetMenu(menuName = "Spells/MagicMissile")]
 public class AttackSpell : Spell
 {
-    [Header("Attack Spell Config")]
+    [Header("Magic Missile Config")]
     [SerializeField] private int _damage;
     [SerializeField] private re_DamageType _damageType;
     [SerializeField] private GameObject _projectile;
@@ -23,6 +23,5 @@ public class AttackSpell : Spell
         // send out bullet towards direction
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(_firePoint.right * _shootForce, ForceMode2D.Impulse);
-
     }
 }

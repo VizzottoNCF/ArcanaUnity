@@ -23,6 +23,12 @@ public class Enemy_Senses : MonoBehaviour
         return distance <= config.meleeRange;
     }
 
+    public bool IsTargetGrounded(Transform target)
+    {
+        if (!target) { return false; }
+        return ServiceLocator.Get<PlayerMovement>().rf_PlayerGrounded();
+    }
+
     private void OnDrawGizmosSelected()
     {
         // Ground Check

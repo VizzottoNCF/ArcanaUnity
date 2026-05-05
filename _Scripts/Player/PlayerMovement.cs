@@ -6,7 +6,8 @@ public class PlayerMovement : MonoBehaviour
 {
     #region vars
     [Header("References")]
-    [SerializeField] private PlayerMovementStats moveStats;
+    public PlayerMovementStats moveStats;
+    public PlayerResourceStats flags;
     [SerializeField] private Collider2D _feetCollider;
     [SerializeField] private Collider2D _bodyCollider;
     [SerializeField] private Animator animator;
@@ -67,7 +68,6 @@ public class PlayerMovement : MonoBehaviour
     private float _downHeldTimer = 0f;
 
     [Header("Debug")]
-    [SerializeField] private bool SlowDownTime = false;
     [SerializeField] private bool NoGravity = false;
 
 
@@ -75,6 +75,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        ServiceLocator.Register<PlayerMovement>(this);
+
         _isFacingRight = true;
 
         _rb = GetComponent<Rigidbody2D>();
@@ -90,8 +92,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (GameController.Instance.IsDead) { return; }
 
-        // DEBUG: SLOW DOWN TIME
-        if (SlowDownTime) { Time.timeScale = 0.2f; } else { Time.timeScale = 1f; }
+        if (flags.hasDoubleJump) { moveStats.NumberOfJumpsAllowed = 2; } else { moveStats.NumberOfJumpsAllowed = 1; }
 
         // look up and down
         if (InputManager.Movement.x == 0 && InputManager.Movement.y > 0) { _upHeldTimer += Time.deltaTime; } else { _upHeldTimer = 0f; }

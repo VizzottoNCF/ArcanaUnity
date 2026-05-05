@@ -20,3 +20,10 @@ MonoBehaviour:
   FireResistance: 0
   ElectricResistance: 0
   IceResistance: 0
+  hasSwordSpell1: 1
+  hasMissileSpell1: 1
+  hasDoubleJump: 0
+  FirstBossDefeated: 0
+  SecondBossDefeated: 0
+  Grasslands1DoorB: 1
+  Grasslands1DoorC: 1

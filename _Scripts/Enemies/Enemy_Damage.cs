@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Enemy_Damage : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Enemy_Damage : MonoBehaviour
     [SerializeField] private float spawnForce = 5f;
     [SerializeField] private float torque = 5f;
     [SerializeField] private float lifetime = 2f;
+    [SerializeField] private bool BushyBoss = false;
 
 
     private void OnEnable()
@@ -24,17 +26,27 @@ public class Enemy_Damage : MonoBehaviour
         health.OnDeath -= HandleDeath;
     }
 
+    private void Start()
+    {
+        if (EnemySaveSystem.IsEnemyDead(SceneManager.GetActiveScene().name, enemy.enemyID)) { Destroy(gameObject); }
+    }
+
     private void HandleDamage(Vector2 sourcePosition)
     {
         int KnockbackDir = 0;
         KnockbackDir = transform.position.x > sourcePosition.x ? 1 : -1;
 
         Debug.Log($"Enemy took damage from {sourcePosition}, KnockbackDir: {KnockbackDir}");
+        if (BushyBoss) { enemy.stateMachine.ChangeState(new B_DamagedState(enemy, KnockbackDir)); return; }
         enemy.stateMachine.ChangeState(new DamagedState(enemy, KnockbackDir));
     }
 
     private void HandleDeath(Vector2 sourcePosition)
     {
+        EnemySaveSystem.SetEnemyDead(SceneManager.GetActiveScene().name, enemy.enemyID);
+        if (BushyBoss) { ServiceLocator.Get<SpellBook>().playerStats.SetFlag("FirstBossDefeated", true); }
+
+
         if (partsEffects)
         {
             foreach (GameObject part in deathParts)

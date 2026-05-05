@@ -27,6 +27,8 @@ public class ParallaxManager : MonoBehaviour
 
         foreach (ParallaxLayer l in layers)
         {
+            if (l.layer == null) continue;
+
             float moveX = cameraDelta.x * l.parallaxFactor;
             float moveY = cameraDelta.y * l.parallaxFactor;
 

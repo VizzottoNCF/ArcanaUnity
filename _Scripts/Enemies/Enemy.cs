@@ -5,7 +5,7 @@ public class Enemy : MonoBehaviour
 {
     //Variables
     public int FacingDirection { get; private set; } = 1;
-
+    
     //Components | Properties
     public Rigidbody2D RB { get; private set; }
     public StateMachine stateMachine { get; private set; }
@@ -13,22 +13,24 @@ public class Enemy : MonoBehaviour
     public Enemy_Combat Combat { get; private set; }
     public Animator Anim { get; private set; }
     public EnemyConfig Config;
-    private void Awake()
+    public string enemyID { get; private set; }
+    public virtual void Awake()
     {
+        enemyID = gameObject.name;
         RB = GetComponent<Rigidbody2D>();
         Anim = GetComponent<Animator>();
         stateMachine = new StateMachine();
         Senses = GetComponent<Enemy_Senses>();
         Combat = GetComponent<Enemy_Combat>();
     }
-    private void Start() { stateMachine.Initialize(new PatrolState(this)); }
+    public virtual void Start() { stateMachine.Initialize(new PatrolState(this)); }
 
-    private void Update() => stateMachine.CurrentState?.Update();
+    public virtual void Update() => stateMachine.CurrentState?.Update();
 
-    private void FixedUpdate() => stateMachine.CurrentState?.FixedUpdate();
-    public void OnAnimationFinished() => stateMachine.CurrentState?.OnAnimationFinished();
+    public virtual void FixedUpdate() => stateMachine.CurrentState?.FixedUpdate();
+    public virtual void OnAnimationFinished() => stateMachine.CurrentState?.OnAnimationFinished();
 
-    public void FaceTarget(Transform target)
+    public virtual void FaceTarget(Transform target)
     {
         float offset = target.position.x - transform.position.x;
         int dir = offset > 0 ? 1 : -1;
@@ -37,7 +39,7 @@ public class Enemy : MonoBehaviour
             Flip();
         }
     }
-    public void Flip()
+    public virtual void Flip()
     {
         FacingDirection *= -1;
 

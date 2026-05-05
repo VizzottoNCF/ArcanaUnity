@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class State 
+public abstract class State
 {
     protected Rigidbody2D rb;
     protected Animator anim;
