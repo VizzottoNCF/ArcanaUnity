@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class FirePoint : MonoBehaviour
 {
@@ -7,9 +8,16 @@ public class FirePoint : MonoBehaviour
     [SerializeField] private float _fixedDistance = 1f;
     [SerializeField] private Vector3 _planeNormal = Vector3.forward; // XY plane
     [SerializeField] private float _planeOffset = 0f; // z = 0 plane
+    [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] private PlayerResourceStats stats;
+    private void Start() { stats = ServiceLocator.Get<SpellBook>().playerStats; }
 
     private void Update()
     {
+        if (stats == null) { stats = ServiceLocator.Get<SpellBook>().playerStats; return; }
+        if (!stats.hasSwordSpell1) { return; }
+        if (!_spriteRenderer.enabled) { _spriteRenderer.enabled = true; }
+
         if (_targetObject == null || GameController.Instance.IsDead) return;
 
         Vector3 worldPos = _targetObject.transform.position - _targetOffset;

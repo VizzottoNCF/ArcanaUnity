@@ -22,7 +22,7 @@ public class PlayerResourceStats : ScriptableObject
 
     [Header("Progression Flags")]
     public bool FirstBossDefeated = false;
-    public bool SecondBossDefeated = false;
+    public bool FGPhase1Defeated = false;
 
     [Header("Map Flags")]
     public bool Grasslands1DoorB = false;

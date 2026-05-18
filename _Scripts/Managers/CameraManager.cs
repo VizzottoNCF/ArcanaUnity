@@ -23,6 +23,8 @@ public class CameraManager : MonoBehaviour
 
     private Vector2 _startingTrackedObjectOffset;
 
+    private CinemachineBrain _cinemachineBrain;
+
     private CinemachineCamera _currentCamera;
     private CinemachinePositionComposer _PositionComposer;
     private CinemachineConfiner2D _Confiner2D;
@@ -62,7 +64,11 @@ public class CameraManager : MonoBehaviour
         // set the starting position of the tracked object offset
         _startingTrackedObjectOffset = _PositionComposer.TargetOffset;
     }
-
+    public void ResetCameraPosition()
+    {
+        Transform t = _currentCamera.Follow;
+        _currentCamera.transform.position = t.position;
+    }
 
     ///TODO: METHOD TO CHANGE CAMERA BOUNDARIES ONCE YOU GET INTO A NEW SCENE 
     /// NEVERMIND. SCRAPPED IDEA, IT'LL BE DIFFERENT PHASES.

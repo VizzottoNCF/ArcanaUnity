@@ -175,13 +175,17 @@ public class PlayerMovement : MonoBehaviour
 
             if (_isOnSlope && _isGrounded && !_isJumping && _canWalkOnSlope) // slope specific movement, due to Y speed
             {
-                if (InputManager.runIsHeld) { targetVelocity = new Vector2(moveStats.maxRunSpeed * _slopeNormalPerpendicular.x * -moveInput.x, moveStats.maxRunSpeed * _slopeNormalPerpendicular.y * -moveInput.x); }
-                else { targetVelocity = new Vector2(moveStats.maxWalkSpeed * _slopeNormalPerpendicular.x * -moveInput.x, moveStats.maxWalkSpeed * _slopeNormalPerpendicular.y * -moveInput.x); }
+                //if (InputManager.runIsHeld) { targetVelocity = new Vector2(moveStats.maxRunSpeed * _slopeNormalPerpendicular.x * -moveInput.x, moveStats.maxRunSpeed * _slopeNormalPerpendicular.y * -moveInput.x); }
+                //else { 
+                    targetVelocity = new Vector2(moveStats.maxWalkSpeed * _slopeNormalPerpendicular.x * -moveInput.x, moveStats.maxWalkSpeed * _slopeNormalPerpendicular.y * -moveInput.x); 
+                //}
             }
             else // normal and airborne movement
             {
-                if (InputManager.runIsHeld) { targetVelocity = new Vector2(moveInput.x, 0f) * moveStats.maxRunSpeed; }
-                else { targetVelocity = new Vector2(moveInput.x, 0f) * moveStats.maxWalkSpeed; }
+                //if (InputManager.runIsHeld) { targetVelocity = new Vector2(moveInput.x, 0f) * moveStats.maxRunSpeed; }
+                //else {
+                targetVelocity = new Vector2(moveInput.x, 0f) * moveStats.maxWalkSpeed;
+                //}
             }
 
             // lerp move velocity from current to target velocity and then apply to rigidbody

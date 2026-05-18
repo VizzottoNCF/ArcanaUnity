@@ -350,12 +350,27 @@ PrefabInstance:
     - target: {fileID: 3403771332262157155, guid: 4385da402aba9084882d7a44d7ee9fb1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3403771332262157155, guid: 4385da402aba9084882d7a44d7ee9fb1,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -13.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3403771332262157155, guid: 4385da402aba9084882d7a44d7ee9fb1,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3403771332262157155, guid: 4385da402aba9084882d7a44d7ee9fb1,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3403771332262157155, guid: 4385da402aba9084882d7a44d7ee9fb1,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4221179245065675139, guid: 4385da402aba9084882d7a44d7ee9fb1,
         type: 3}
@@ -367,15 +382,55 @@ PrefabInstance:
       propertyPath: m_Name
       value: CAMERA_MANAGER
       objectReference: {fileID: 0}
+    - target: {fileID: 6712366244334156636, guid: 4385da402aba9084882d7a44d7ee9fb1,
+        type: 3}
+      propertyPath: DefaultBlend.Style
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6712366244334156636, guid: 4385da402aba9084882d7a44d7ee9fb1,
+        type: 3}
+      propertyPath: DefaultBlend.CustomCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6712366244334156636, guid: 4385da402aba9084882d7a44d7ee9fb1,
+        type: 3}
+      propertyPath: DefaultBlend.CustomCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6712366244334156636, guid: 4385da402aba9084882d7a44d7ee9fb1,
+        type: 3}
+      propertyPath: DefaultBlend.CustomCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6712366244334156636, guid: 4385da402aba9084882d7a44d7ee9fb1,
+        type: 3}
+      propertyPath: DefaultBlend.CustomCurve.m_Curve.Array.data[0].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6712366244334156636, guid: 4385da402aba9084882d7a44d7ee9fb1,
+        type: 3}
+      propertyPath: DefaultBlend.CustomCurve.m_Curve.Array.data[1].inSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6712366244334156636, guid: 4385da402aba9084882d7a44d7ee9fb1,
+        type: 3}
+      propertyPath: DefaultBlend.CustomCurve.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6712366244334156636, guid: 4385da402aba9084882d7a44d7ee9fb1,
+        type: 3}
+      propertyPath: DefaultBlend.CustomCurve.m_Curve.Array.data[1].outSlope
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8153373779927450905, guid: 4385da402aba9084882d7a44d7ee9fb1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.4999998
+      value: 164.48358
       objectReference: {fileID: 0}
     - target: {fileID: 8153373779927450905, guid: 4385da402aba9084882d7a44d7ee9fb1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.5
+      value: -17.995026
       objectReference: {fileID: 0}
     - target: {fileID: 8153373779927450905, guid: 4385da402aba9084882d7a44d7ee9fb1,
         type: 3}

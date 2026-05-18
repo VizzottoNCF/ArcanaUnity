@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private float _lifetime = 5f;
+    public float speed = 3f;
 
     private void Update()
     {

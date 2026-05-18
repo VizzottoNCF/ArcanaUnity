@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -13,8 +15,12 @@ public class GameController : MonoBehaviour
     public bool IsPlayerGrounded = true;
     public bool IsDead = false;
     public bool isTimeSlowed = false;
+    public bool CanTakeDamage = true;
 
     [Header("References")]
+    [SerializeField] private GameObject _HudBar;
+    [SerializeField] private GameObject _HudSpells;
+    [SerializeField] private GameObject _HudRespawn;
     [SerializeField] private GameObject _SpriteReference;
     [SerializeField] private Rigidbody2D _rb;
     private Vector2 _startPos;
@@ -30,38 +36,60 @@ public class GameController : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
     }
 
+    private void Update()
+    {
+        //if (Input.GetKeyDown(KeyCode.R)) { rf_Respawn(); }
+    }
+
     // call this function on health script when necessary
     [ContextMenu("Cause Player Death")]
     public void rf_PlayerDeath()
     {
         IsDead = true;
-        // TODO: effects on player death
 
-        // respawns 
-        //rf_Respawn();
+        // turn off hud
+        _HudBar.SetActive(false);
+        _HudSpells.SetActive(false);
+        _HudRespawn.SetActive(true);
     }
 
-    private void rf_Respawn()
+    public void rf_Respawn()
     {
-        // TODO: call for health to be fully restored in death
+        bool save = false;
+        if (IsDead)
+        {
+            // reset vars just in case
+            CanPlayerMove = true;
+            InKnockback = false;
+            isTimeSlowed = false;
+            Time.timeScale = 1f;
+            IsDead = false;
 
-        StartCoroutine(rIE_Respawn(0.5f));
+            // restore hud
+            _HudBar.SetActive(true);
+            _HudSpells.SetActive(true);
+            _HudRespawn.SetActive(false);
+
+            // restore health
+            Health h = GetComponent<Health>();
+            h.health = h.maxHealth;
+
+            // reset enemy date
+            EnemySaveSystem.ResetSave();
+            if (SceneManager.GetActiveScene().name == "WL_Vulcan") { save = true; }
+        }
+
+        // send player to last spawn point
+        //Debug.LogWarning("Respawn load");
+        RoomTransitionManager srv = ServiceLocator.Get<RoomTransitionManager>();
+        
+        srv.EnterRoom(srv.getCurrentRoom(), srv.currSpawn, save);
     }
-
-
-    private IEnumerator rIE_Respawn(float duration)
+    public void rf_RespawnNoLoad()
     {
-        // disables player mobility and gameobject that shows sprite
-        _rb.simulated = false;
-        CanPlayerMove = false;
-        _SpriteReference.SetActive(false);
-
-        // waits for half a second, teleports to spawn, reenables movement and reactivates sprite gameobject
-        yield return new WaitForSeconds(duration);
-        transform.position = _startPos;
-
-        _rb.simulated = true;
-        CanPlayerMove = true;
-        _SpriteReference.SetActive(true);
+        // send player to last spawn point
+        //Debug.LogWarning("Respawn no load");
+        RoomTransitionManager srv = ServiceLocator.Get<RoomTransitionManager>();
+        srv.TeleportToSpawnPoint();
     }
 }

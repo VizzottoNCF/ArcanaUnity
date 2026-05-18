@@ -26,5 +26,5 @@ MonoBehaviour:
     type: 3}
   _targetLayer:
     serializedVersion: 2
-    m_Bits: 524288
+    m_Bits: 2621440
   _shootForce: 15

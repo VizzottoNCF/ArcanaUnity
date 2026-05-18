@@ -7,6 +7,7 @@ public class B_IntroState : State
 
     private bool FightStart = false;
     private PlayerMovement pMove;
+    private float timer = 0f;
 
     public override void Enter()
     {
@@ -22,7 +23,10 @@ public class B_IntroState : State
         if (!FightStart)
         {
             float dist = Vector2.Distance(combat.gameObject.transform.position, pMove.gameObject.transform.position);
-            if (dist <= 5f) { FightStart = true; }
+            if (dist <= 5f) { timer += Time.fixedDeltaTime; }
+            else { timer = 0f; }
+
+            if (timer >= 3f) { FightStart = true; }
         }
         else
         {

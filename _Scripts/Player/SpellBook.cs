@@ -234,11 +234,11 @@ public class SpellBook : MonoBehaviour
 
     public void CloseSpellChangeMenu()
     {
-        //TODO: SPRITE LATER
+        Color b = new Color(0.5188679f, 0.2928829f, 0.1933517f, 1f);
         _equippedSpellLeft.GetComponent<Button>().interactable = false;
-        _equippedSpellLeft.GetComponent<Image>().color = Color.white;
+        _equippedSpellLeft.GetComponent<Image>().color = b;
         _equippedSpellRight.GetComponent<Button>().interactable = false;
-        _equippedSpellRight.GetComponent<Image>().color = Color.white;
+        _equippedSpellRight.GetComponent<Image>().color = b;
 
         foreach (Transform child in _spellChangeGrid.transform)
         {
@@ -284,8 +284,9 @@ public class SpellBook : MonoBehaviour
         _currentChangingSpellSlot = slot;
 
         //TODO: SPRITE LATER
-        _equippedSpellLeft.GetComponent<Image>().color = Color.white;
-        _equippedSpellRight.GetComponent<Image>().color = Color.white;
+        Color b = new Color(0.5188679f, 0.2928829f, 0.1933517f, 1f);
+        _equippedSpellLeft.GetComponent<Image>().color = b;
+        _equippedSpellRight.GetComponent<Image>().color = b;
 
         button.GetComponent<Image>().color = Color.yellow;
 

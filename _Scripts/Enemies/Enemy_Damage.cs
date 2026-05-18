@@ -13,6 +13,7 @@ public class Enemy_Damage : MonoBehaviour
     [SerializeField] private float torque = 5f;
     [SerializeField] private float lifetime = 2f;
     [SerializeField] private bool BushyBoss = false;
+    [SerializeField] private bool FGBoss = false;
 
 
     private void OnEnable()
@@ -36,7 +37,8 @@ public class Enemy_Damage : MonoBehaviour
         int KnockbackDir = 0;
         KnockbackDir = transform.position.x > sourcePosition.x ? 1 : -1;
 
-        Debug.Log($"Enemy took damage from {sourcePosition}, KnockbackDir: {KnockbackDir}");
+        //Debug.Log($"Enemy took damage from {sourcePosition}, KnockbackDir: {KnockbackDir}");
+        if (FGBoss) { return; } // TODO: FLASH SPRITE OR SOMETHING
         if (BushyBoss) { enemy.stateMachine.ChangeState(new B_DamagedState(enemy, KnockbackDir)); return; }
         enemy.stateMachine.ChangeState(new DamagedState(enemy, KnockbackDir));
     }
@@ -45,6 +47,7 @@ public class Enemy_Damage : MonoBehaviour
     {
         EnemySaveSystem.SetEnemyDead(SceneManager.GetActiveScene().name, enemy.enemyID);
         if (BushyBoss) { ServiceLocator.Get<SpellBook>().playerStats.SetFlag("FirstBossDefeated", true); }
+        // TODO: game won UI
 
 
         if (partsEffects)

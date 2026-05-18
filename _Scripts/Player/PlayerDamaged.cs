@@ -39,7 +39,7 @@ public class PlayerDamaged : MonoBehaviour
         GameController.Instance.isTimeSlowed = false;
         Time.timeScale = 1f;
 
-        Debug.Log("Stopping knockback, allowing player to move again.");
+        //Debug.Log("Stopping knockback, allowing player to move again.");
         GameController.Instance.CanPlayerMove = true;
         GameController.Instance.InKnockback = false;
         rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
@@ -47,18 +47,19 @@ public class PlayerDamaged : MonoBehaviour
 
     private void HandleDeath(Vector2 sourcePosition)
     {
+        GameController.Instance.IsDead = true;
+        GameController.Instance.CanPlayerMove = false;
+        GameController.Instance.InKnockback = true;
+        GameController.Instance.isTimeSlowed = true;
+        Time.timeScale = 0.3f;
+        GameController.Instance.rf_PlayerDeath();
         int KnockbackDir = 0;
         KnockbackDir = transform.position.x > sourcePosition.x ? 1 : -1;
 
         float knockbackVelocity = KnockbackDir * knockbackForce;
 
-        GameController.Instance.CanPlayerMove = false;
-        GameController.Instance.InKnockback = true;
-        GameController.Instance.isTimeSlowed = true;
-        Time.timeScale = 0.3f;
         rb.linearVelocity = new Vector2(knockbackVelocity, rb.linearVelocity.y);
         Invoke(nameof(StopKnockback), knockbackDuration*5);
 
-        GameController.Instance.rf_PlayerDeath();
     }
 }

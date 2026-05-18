@@ -42,6 +42,6 @@ MonoBehaviour:
   rangedDamage: 1
   rangedDamageType: 0
   chargeAttackForce: 5
-  jumpHeight: 5
+  jumpHeight: 8
   knockbackForce: 10
   knockbackDuration: 0.1

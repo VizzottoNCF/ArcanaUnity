@@ -25,4 +25,4 @@ MonoBehaviour:
   sword: {fileID: 5084082120656529793, guid: 3ba8ac63b8681954d830d4857026ccf0, type: 3}
   targetLayer:
     serializedVersion: 2
-    m_Bits: 524288
+    m_Bits: 2621440

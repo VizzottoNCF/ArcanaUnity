@@ -35,7 +35,17 @@ MonoBehaviour:
     m_Bits: 1048576
   meleeAttackCooldown: 2
   meleeRange: 1.7
-  meleeDamage: 1
+  meleeDamage: 2
   meleeDamageType: 1
+  rangedAttackCooldown: 1
+  rangedAttackForce: 12
+  rangedRange: 0
+  rangedDamage: 1
+  rangedDamageType: 0
+  chargeAttackForce: 8
+  jumpHeight: 3
   knockbackForce: 10
   knockbackDuration: 0.1
+  slamAttackCooldown: 5
+  pushAttackCooldown: 5
+  lavaAttackCooldown: 5

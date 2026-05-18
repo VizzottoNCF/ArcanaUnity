@@ -5,11 +5,17 @@ public class Enemy_Senses : MonoBehaviour
     [SerializeField] private Enemy enemy;
     [SerializeField] private EnemyConfig config;
     [SerializeField] private Transform groundCheck;
-    [SerializeField] private Transform wallCheck;
+    [SerializeField] private Transform[] wallCheck;
     [SerializeField] private Transform attackPoint;
     
     public bool IsAtCliff() => !Physics2D.Raycast(groundCheck.position, Vector2.down, config.groundCheckDistance, config.groundLayer);
-    public bool IsHittingWall() => Physics2D.Raycast(wallCheck.position, Vector2.right, config.wallCheckDistance, config.wallLayer);
+    public bool IsHittingWall() { 
+        foreach (Transform t in wallCheck)
+        {
+            if (Physics2D.Raycast(t.position, Vector2.right, config.wallCheckDistance, config.wallLayer) == true) { return true; }
+        }
+        return false;
+    }
     public Transform GetChaseTarget()
     {
         Collider2D hit = Physics2D.OverlapCircle(attackPoint.position, config.chaseRange, config.targetLayer);
@@ -22,6 +28,12 @@ public class Enemy_Senses : MonoBehaviour
         float distance = Vector2.Distance(target.position, attackPoint.position);
         return distance <= config.meleeRange;
     }
+    public bool IsInRangedRange(Transform target)
+    {
+        if (!target) { return false; }
+        float distance = Vector2.Distance(target.position, attackPoint.position);
+        return distance <= config.rangedRange;
+    }
 
     public bool IsTargetGrounded(Transform target)
     {
@@ -31,14 +43,18 @@ public class Enemy_Senses : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+        if (groundCheck == null || wallCheck == null || attackPoint == null) { return; }
+
         // Ground Check
         Gizmos.color = Color.purple;
         Gizmos.DrawLine(groundCheck.position, groundCheck.position + Vector3.down * config.groundCheckDistance);
 
         // Wall Check
-        Gizmos.color = Color.blue;
-        Gizmos.DrawLine(wallCheck.position, wallCheck.position + Vector3.right * enemy.FacingDirection * config.wallCheckDistance);
-        
+        foreach (Transform t in wallCheck)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(t.position, t.position + Vector3.right * enemy.FacingDirection * config.wallCheckDistance);
+        }
         // Chase Check
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(attackPoint.position, config.chaseRange);

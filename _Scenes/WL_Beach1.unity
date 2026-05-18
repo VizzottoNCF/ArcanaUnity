@@ -309,6 +309,7 @@ GameObject:
   m_Component:
   - component: {fileID: 201619879}
   - component: {fileID: 201619880}
+  - component: {fileID: 201619881}
   m_Layer: 0
   m_Name: DoorA
   m_TagString: Untagged
@@ -344,6 +345,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnPoint
   spawnID: DoorA
+--- !u!61 &201619881
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 201619878}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 7, y: 7}
+  m_EdgeRadius: 0
 --- !u!1 &337958559
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,7 +475,7 @@ Transform:
   m_GameObject: {fileID: 337958559}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 70.02, y: -34.97, z: 0}
+  m_LocalPosition: {x: 62.74, y: -34.97, z: 0}
   m_LocalScale: {x: 3.6417, y: 3.6417, z: 3.6417}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15838,6 +15885,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraControlTrigger
   _col2d: {fileID: 1027672409}
   _confiner2D: {fileID: 0}
+  cam: {fileID: 0}
 --- !u!66 &1027672409
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -16062,6 +16110,7 @@ MonoBehaviour:
   parallax: {fileID: 2046036193}
   spawns:
   - {fileID: 201619880}
+  - {fileID: 4012513959671927090}
 --- !u!4 &1028305024
 Transform:
   m_ObjectHideFlags: 0
@@ -16284,7 +16333,7 @@ Transform:
   m_GameObject: {fileID: 1339514500}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1612, y: -10.0445, z: 0}
+  m_LocalPosition: {x: -0.3184, y: -9.9655, z: 0}
   m_LocalScale: {x: 6.6714, y: 2.3258, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16336,13 +16385,13 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 1eb56958c9814374ab0356bec09b0318, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 1
   m_DrawMode: 1
-  m_Size: {x: 0.47482318, y: 1.722819}
+  m_Size: {x: 0.627718, y: 1.6549227}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -16644,7 +16693,7 @@ Transform:
   m_GameObject: {fileID: 1616649459}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1612, y: -10.0445, z: 0}
+  m_LocalPosition: {x: -0.3184, y: -9.9655, z: 0}
   m_LocalScale: {x: 6.6714, y: 2.3258, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16696,13 +16745,13 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 1eb56958c9814374ab0356bec09b0318, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 1
   m_DrawMode: 1
-  m_Size: {x: 0.47482318, y: 1.722819}
+  m_Size: {x: 0.627718, y: 1.6549227}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -17096,7 +17145,7 @@ Transform:
   m_GameObject: {fileID: 1793499456}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1612, y: -10.0445, z: 0}
+  m_LocalPosition: {x: -0.3184, y: -9.9655, z: 0}
   m_LocalScale: {x: 6.6714, y: 2.3258, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17148,13 +17197,13 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 1eb56958c9814374ab0356bec09b0318, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 1
   m_DrawMode: 1
-  m_Size: {x: 0.47482318, y: 1.722819}
+  m_Size: {x: 0.627718, y: 1.6549227}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -17466,7 +17515,7 @@ PrefabInstance:
     - target: {fileID: 3174845334014545579, guid: 71119a7b51557884d962905a5c29e50b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 62.74
+      value: 70.34
       objectReference: {fileID: 0}
     - target: {fileID: 3174845334014545579, guid: 71119a7b51557884d962905a5c29e50b,
         type: 3}
@@ -17516,8 +17565,24 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3527698744047672176, guid: 71119a7b51557884d962905a5c29e50b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 71119a7b51557884d962905a5c29e50b, type: 3}
+--- !u!114 &4012513959671927090 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3687887112101212353, guid: 71119a7b51557884d962905a5c29e50b,
+    type: 3}
+  m_PrefabInstance: {fileID: 4012513959671927089}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a332fabb53b16e4e835e134921e94e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnPoint
 --- !u!1001 &8140523600646519995
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17545,7 +17610,7 @@ PrefabInstance:
     - target: {fileID: 5314712604697134739, guid: 81acdd2d5b034524196d9a516c8f8527,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 70.04
+      value: 62.760006
       objectReference: {fileID: 0}
     - target: {fileID: 5314712604697134739, guid: 81acdd2d5b034524196d9a516c8f8527,
         type: 3}

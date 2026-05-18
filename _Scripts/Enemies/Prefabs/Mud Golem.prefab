@@ -271,6 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Combat
   attackPoint: {fileID: 3564539964712659723}
+  attackTarget: {fileID: 0}
 --- !u!114 &4894075545364879385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,7 +317,8 @@ MonoBehaviour:
   enemy: {fileID: 7144863182822608840}
   config: {fileID: 11400000, guid: e3f5dbab8afba224bbbcb8f67cd5d151, type: 2}
   groundCheck: {fileID: 3996692892725189402}
-  wallCheck: {fileID: 6836101987566028803}
+  wallCheck:
+  - {fileID: 6836101987566028803}
   attackPoint: {fileID: 3564539964712659723}
 --- !u!114 &856426507094784805
 MonoBehaviour:
@@ -340,9 +342,11 @@ MonoBehaviour:
   - {fileID: 8420447166463366571, guid: 2293c73b22156084cb5ddd2fc34f4942, type: 3}
   - {fileID: 4205642346668570174, guid: 767950984fb6d7944b145f75c6694262, type: 3}
   - {fileID: 1992852989821497503, guid: 21b4e65b9b7b1b1439e4b2e010c7197a, type: 3}
-  spawnForce: 15
-  torque: 15
-  lifetime: 5
+  spawnForce: 8
+  torque: 8
+  lifetime: 3
+  BushyBoss: 0
+  FGBoss: 0
 --- !u!1 &8494601865030142127
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,7 +21,7 @@ public class Health : MonoBehaviour
             for (int i = 0; i < Enum.GetValues(typeof(re_DamageType)).Length; i++) { resistances.Add(0); }
         }
         if (playerStats != null) { InitializeResistances(); }
-        else { InitializeEnemyResistances(); };
+        else if (enemyStats != null) { InitializeEnemyResistances(); };
     }
 
         public void ApplyResistance(int damage, re_DamageType damageType, Vector2 sourcePosition = default)
@@ -38,6 +38,8 @@ public class Health : MonoBehaviour
 
     public void ChangeHealth(int amount, Vector2 sourcePosition = default)
     {
+        if (!GameController.Instance.CanTakeDamage) { return; }
+
         health += amount;
 
         if (health > maxHealth) { health = maxHealth; }
