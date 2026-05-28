@@ -100,28 +100,6 @@ ScriptedImporter:
     spritePosition: {x: 0, y: 0}
   multiSpriteImportData: []
   layeredSpriteImportData:
-  - name: No Name
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 342
-      y: 1002
-      width: 0
-      height: 0
-    spriteID: 3553308420311844a95618a69be486be
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 342, y: 1002}
-    spritePosition: {x: 0, y: 1200}
   - name: hat
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -3282,7 +3260,7 @@ ScriptedImporter:
     layerID: 0
     mosaicPosition: {x: 342, y: 1002}
     flatten: 0
-    isImported: 1
+    isImported: 0
     isVisible: 1
   - name: Hat
     spriteName: 

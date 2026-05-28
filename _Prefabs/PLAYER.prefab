@@ -194,6 +194,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3720017721746521682
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -239,7 +240,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 2d256c15dc2dd874d801d72d294e586a, type: 3}
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 21300000, guid: b7eb123494bba2e429db15adfb522742, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -248,7 +250,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 1
 --- !u!50 &5502383163986141592
 Rigidbody2D:
@@ -333,9 +334,11 @@ MonoBehaviour:
   IsPlayerGrounded: 1
   IsDead: 0
   isTimeSlowed: 0
+  CanTakeDamage: 1
   _HudBar: {fileID: 4960118839439913935}
   _HudSpells: {fileID: 7356346715391233801}
   _HudRespawn: {fileID: 3978061505513460231}
+  _HudWin: {fileID: 0}
   _SpriteReference: {fileID: 7581943890219161176}
   _rb: {fileID: 5502383163986141592}
 --- !u!114 &4103284236441474489
@@ -753,11 +756,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4827967496841199120, guid: 87d41db4b645753429df8d8841e6b6a7,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6536902482261444019, guid: 87d41db4b645753429df8d8841e6b6a7,
         type: 3}
       propertyPath: m_IsActive
       value: 0

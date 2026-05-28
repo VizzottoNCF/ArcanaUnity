@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10fc1ccb296a1294198877d7bfa4afe0, type: 3}
   m_Name: Flyer
   m_EditorClassIdentifier: Assembly-CSharp::EnemyConfig
-  maxHealth: 5
+  maxHealth: 2
   turnThreshold: 1
   PhysicalResistance: 0
   MagicalResistance: 0

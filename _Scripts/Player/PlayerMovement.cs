@@ -643,7 +643,6 @@ public class PlayerMovement : MonoBehaviour
         #endregion
     }
 
-    //TODO: EDGE CORRECTION NOT WORKING PROPERLY, BUGFIX EVENTUALLY
     private void rf_EdgeCorrection()
     {
         // Determine which edge is colliding

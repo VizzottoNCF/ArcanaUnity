@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject _HudBar;
     [SerializeField] private GameObject _HudSpells;
     [SerializeField] private GameObject _HudRespawn;
+    [SerializeField] private GameObject _HudWin;
     [SerializeField] private GameObject _SpriteReference;
     [SerializeField] private Rigidbody2D _rb;
     private Vector2 _startPos;
@@ -38,7 +39,7 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.R)) { rf_Respawn(); }
+        if (Input.GetKeyDown(KeyCode.P)) { rf_Respawn(); }
     }
 
     // call this function on health script when necessary
@@ -91,5 +92,13 @@ public class GameController : MonoBehaviour
         //Debug.LogWarning("Respawn no load");
         RoomTransitionManager srv = ServiceLocator.Get<RoomTransitionManager>();
         srv.TeleportToSpawnPoint();
+    }
+
+    public void rf_WinGame()
+    {
+        CanPlayerMove = false;
+        CanTakeDamage = false;
+
+        _HudWin.SetActive(true);
     }
 }

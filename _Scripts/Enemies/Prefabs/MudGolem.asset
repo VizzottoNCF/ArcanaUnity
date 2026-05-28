@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10fc1ccb296a1294198877d7bfa4afe0, type: 3}
   m_Name: MudGolem
   m_EditorClassIdentifier: Assembly-CSharp::EnemyConfig
-  maxHealth: 5
+  maxHealth: 4
   turnThreshold: 1
   PhysicalResistance: 0
   MagicalResistance: 0
@@ -37,12 +37,12 @@ MonoBehaviour:
   meleeRange: 1.7
   meleeDamage: 2
   meleeDamageType: 1
+  chargeAttackForce: 8
   rangedAttackCooldown: 1
   rangedAttackForce: 12
   rangedRange: 0
   rangedDamage: 1
   rangedDamageType: 0
-  chargeAttackForce: 8
   jumpHeight: 3
   knockbackForce: 10
   knockbackDuration: 0.1

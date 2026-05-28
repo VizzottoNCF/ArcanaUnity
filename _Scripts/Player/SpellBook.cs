@@ -145,6 +145,7 @@ public class SpellBook : MonoBehaviour
                     _state[slot] = re_SpellState.ACTIVE;
                     _activeTime[slot] = _spell[slot].rf_ReadActiveTime();
                     UseMana(_spell[slot].manaCost);
+                    AudioManager.Instance.Play("spellCast");
                 }
                 break;
 
@@ -196,7 +197,6 @@ public class SpellBook : MonoBehaviour
         _equippedSpellLeft.GetComponent<Button>().interactable = true;
         _equippedSpellRight.GetComponent<Button>().interactable = true;
 
-        // TODO: replace with sprites later
         if (_currentChangingSpellSlot == 0) { _equippedSpellLeft.GetComponent<Image>().color = Color.yellow; }
         else { _equippedSpellRight.GetComponent<Image>().color = Color.yellow; }
 
@@ -283,7 +283,6 @@ public class SpellBook : MonoBehaviour
 
         _currentChangingSpellSlot = slot;
 
-        //TODO: SPRITE LATER
         Color b = new Color(0.5188679f, 0.2928829f, 0.1933517f, 1f);
         _equippedSpellLeft.GetComponent<Image>().color = b;
         _equippedSpellRight.GetComponent<Image>().color = b;

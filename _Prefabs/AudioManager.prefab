@@ -175,10 +175,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17daf18cf26de7c44b54f07a8ad08315, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicSounds: []
-  sfxSounds: []
-  musicSource: {fileID: 3277222048606640839}
-  sfxSource: {fileID: 3528682777776108312}
+  sounds:
+  - name: jump
+    clip: {fileID: 8300000, guid: f4768a3d76679164da5b75969b00a680, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: rumble
+    clip: {fileID: 8300000, guid: 437d1dc38f1b5e5468d252f40c8d09d2, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: spellCast
+    clip: {fileID: 8300000, guid: 32e8bc3fb12091649bdae13bc4da6093, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: obtain
+    clip: {fileID: 8300000, guid: 8bae59c33979aa54984cf5b98e8d1082, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: achievement
+    clip: {fileID: 8300000, guid: 44e7985b32b9bc04993af0831007fc3d, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: wrongPlace
+    clip: {fileID: 8300000, guid: 1d8c47eea4e4cb547bf8fbfb2c069cbd, type: 3}
+    volume: 0.7
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 0}
+    volume: 0.7
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!1 &8449647973854748482
 GameObject:
   m_ObjectHideFlags: 0

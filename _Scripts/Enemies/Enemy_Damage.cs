@@ -47,7 +47,8 @@ public class Enemy_Damage : MonoBehaviour
     {
         EnemySaveSystem.SetEnemyDead(SceneManager.GetActiveScene().name, enemy.enemyID);
         if (BushyBoss) { ServiceLocator.Get<SpellBook>().playerStats.SetFlag("FirstBossDefeated", true); }
-        // TODO: game won UI
+        
+        if (FGBoss) { GameController.Instance.rf_WinGame(); }
 
 
         if (partsEffects)

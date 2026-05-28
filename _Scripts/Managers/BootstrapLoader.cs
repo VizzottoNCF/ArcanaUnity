@@ -1,10 +1,12 @@
-    using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public static class BootstrapLoader
 {
     private const string BootstrapScene = "Bootstrap";
     private const string MainMenuScene = "MainMenu";
+    private const string CutsceneScene = "Cutscene";
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Init()
@@ -20,7 +22,7 @@ public static class BootstrapLoader
 
     private static void EnsureBootstrapLoaded(Scene scene)
     {
-        if (scene.name == MainMenuScene) { return; }
+        if (scene.name == MainMenuScene || scene.name == CutsceneScene) { return; }
         
 
         if (!SceneManager.GetSceneByName(BootstrapScene).isLoaded)

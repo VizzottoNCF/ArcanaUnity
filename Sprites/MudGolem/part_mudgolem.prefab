@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1041994331052169035}
   - component: {fileID: 5454374290906761542}
   - component: {fileID: 4653091825229914762}
-  m_Layer: 19
+  m_Layer: 17
   m_Name: part_mudgolem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
