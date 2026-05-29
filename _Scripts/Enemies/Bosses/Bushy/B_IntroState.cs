@@ -8,6 +8,7 @@ public class B_IntroState : State
     private bool FightStart = false;
     private PlayerMovement pMove;
     private float timer = 0f;
+    private bool fired = false;
 
     public override void Enter()
     {
@@ -23,8 +24,15 @@ public class B_IntroState : State
         if (!FightStart)
         {
             float dist = Vector2.Distance(combat.gameObject.transform.position, pMove.gameObject.transform.position);
-            if (dist <= 5f) { timer += Time.fixedDeltaTime; }
+            if (dist <= 5f) 
+            { 
+                timer += Time.fixedDeltaTime;
+                
+            }
             else { timer = 0f; }
+
+
+            if (timer >= 2f && !fired) { anim.SetTrigger("Intro"); fired = true; }
 
             if (timer >= 3f) { FightStart = true; }
         }

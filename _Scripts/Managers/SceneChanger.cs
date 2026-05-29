@@ -14,7 +14,7 @@ public class SceneChanger : MonoBehaviour
     {
         StartCoroutine(sf.Fade(0f, 1f, .5f));
 
-        Invoke("ChangeSceneNow", .6f);
+        Invoke("ChangeSceneNow", 2f);
     }
     public void Fade()
     {

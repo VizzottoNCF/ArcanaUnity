@@ -35,14 +35,14 @@ public class FG_IdleState : State
         if (timer < 2f) { return; }
 
         // slam into platform
-        if (combat.FG_CanSlamAttack() && senses.IsTargetGrounded(target))
+        if (combat.FG_CanSlamAttack() && health.health >= (health.maxHealth / 2))
         {
             stateMachine.ChangeState(new FG_SlamAttackState(fg));
             return;
         }
 
         // push into lava
-        if (combat.FG_CanPushAttack() && !senses.IsTargetGrounded(target))
+        if (combat.FG_CanPushAttack() && health.health <= (health.maxHealth / 2))
         {
             stateMachine.ChangeState(new FG_PushAttackState(fg));
             return;
