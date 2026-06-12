@@ -329,7 +329,7 @@ public class PlayerMovement : MonoBehaviour
             _isJumping = true;
         }
 
-        //AudioManager.Instance.rf_PlaySFX("Jump");
+        AudioManager.Instance.Play("jump");
         _jumpBufferTimer = 0f;
         _numberOfJumpsUsed += numberOfJumpsUsed;
         VerticalVelocity = moveStats.InitialJumpVelocity;

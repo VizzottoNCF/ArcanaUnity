@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 918b71176b483a84bbe5b013aa26f095, type: 3}
   m_Name: Player Spells
   m_EditorClassIdentifier: Assembly-CSharp::PlayerKnownSpells
-  knownSpells: []
+  knownSpells:
+  - {fileID: 11400000, guid: 3229814297e039a4bbe0b56ef7ee432c, type: 2}

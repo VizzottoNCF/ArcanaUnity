@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,13 +21,22 @@ public static class BootstrapLoader
 
     private static void EnsureBootstrapLoaded(Scene scene)
     {
-        if (scene.name == MainMenuScene || scene.name == CutsceneScene) { return; }
-        
+        if (scene.name == MainMenuScene || scene.name == CutsceneScene)
+        {
+            AudioManager.Instance.StopAllSongs();
+
+            if (SceneManager.GetSceneByName(BootstrapScene).isLoaded)
+            {
+                SceneManager.UnloadSceneAsync(BootstrapScene);
+            }
+            return;
+        }
+
 
         if (!SceneManager.GetSceneByName(BootstrapScene).isLoaded)
         {
             SceneManager.LoadSceneAsync(BootstrapScene, LoadSceneMode.Additive);
         }
-        
+
     }
 }

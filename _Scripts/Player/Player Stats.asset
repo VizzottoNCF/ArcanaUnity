@@ -24,6 +24,6 @@ MonoBehaviour:
   hasMissileSpell1: 0
   hasDoubleJump: 1
   FirstBossDefeated: 0
-  FGPhase1Defeated: 1
+  FGPhase1Defeated: 0
   Grasslands1DoorB: 0
   Grasslands1DoorC: 0

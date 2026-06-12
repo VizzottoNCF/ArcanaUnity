@@ -8,6 +8,7 @@ public class ObtainSpell : MonoBehaviour
     public SpellBook spellBook;
     public PlayerResourceStats playerStats;
     public string soundName = "obtain";
+    public string message;
     private void Start()
     {
         spellBook = ServiceLocator.Get<SpellBook>();
@@ -20,7 +21,9 @@ public class ObtainSpell : MonoBehaviour
             if (spellToObtain != null) { spellBook._playerKnownSpells.LearnSpell(spellToObtain); }
 
             playerStats.SetFlag(flagName, true);
-            
+
+            GameController.Instance.New_PowerUp(message);
+
             AudioManager.Instance.Play(soundName);
         }
     }

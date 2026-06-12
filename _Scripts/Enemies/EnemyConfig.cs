@@ -25,9 +25,10 @@ public class EnemyConfig : ScriptableObject
     [Header("Chase")]
     public float chaseSpeed = 7f;
     public float chaseRange = 5f;
-    public LayerMask targetLayer;   
+    public LayerMask targetLayer;
 
     [Header("Melee Attack")]
+    public bool hasMelee = true;
     public float meleeAttackCooldown = 1.5f;
     public float meleeRange = 1.2f;
     public int meleeDamage = 1;
@@ -36,6 +37,7 @@ public class EnemyConfig : ScriptableObject
 
 
     [Header("Ranged Attack")]
+    public bool hasRanged = true;
     public float rangedAttackCooldown = 1.5f;
     public float rangedAttackForce = 12f;
     public float rangedRange = 1.2f;

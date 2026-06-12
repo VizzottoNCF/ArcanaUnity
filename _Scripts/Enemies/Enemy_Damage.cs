@@ -38,7 +38,7 @@ public class Enemy_Damage : MonoBehaviour
         KnockbackDir = transform.position.x > sourcePosition.x ? 1 : -1;
 
         //Debug.Log($"Enemy took damage from {sourcePosition}, KnockbackDir: {KnockbackDir}");
-        if (FGBoss) { return; } // TODO: FLASH SPRITE OR SOMETHING
+        if (FGBoss) { enemy.Anim.SetTrigger("Hurt"); return; } 
         if (BushyBoss) { enemy.stateMachine.ChangeState(new B_DamagedState(enemy, KnockbackDir)); return; }
         enemy.stateMachine.ChangeState(new DamagedState(enemy, KnockbackDir));
     }

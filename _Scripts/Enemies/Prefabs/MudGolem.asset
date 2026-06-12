@@ -34,7 +34,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1048576
   meleeAttackCooldown: 2
-  meleeRange: 1.7
+  meleeRange: 1
   meleeDamage: 2
   meleeDamageType: 1
   chargeAttackForce: 8

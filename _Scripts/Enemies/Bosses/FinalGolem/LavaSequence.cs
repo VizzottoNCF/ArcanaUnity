@@ -22,10 +22,6 @@ public class LavaSequence : MonoBehaviour
     }
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.L)) // For testing: Press 'L' to start the lava sequence
-        //{
-        //    StartSequence();
-        //}
         if (!isActive) { return; }
 
         // Calculate the distance between lava and player

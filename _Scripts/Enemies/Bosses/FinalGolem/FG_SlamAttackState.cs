@@ -36,7 +36,6 @@ public class FG_SlamAttackState : State
         t += Time.deltaTime;
 
         if (t >= 2.3f) { stateMachine.ChangeState(new FG_IdleState(fg)); }
-        //if (Input.GetKeyDown(KeyCode.G)) { stateMachine.ChangeState(new FG_IdleState(fg));  }
     }
     public override void OnAnimationFinished() { stateMachine.ChangeState(new FG_IdleState(fg)); }
 }

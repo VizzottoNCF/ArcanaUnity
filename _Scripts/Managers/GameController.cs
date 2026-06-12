@@ -22,24 +22,23 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject _HudSpells;
     [SerializeField] private GameObject _HudRespawn;
     [SerializeField] private GameObject _HudWin;
+    [SerializeField] private GameObject _HudPowerUp;
     [SerializeField] private GameObject _SpriteReference;
     [SerializeField] private Rigidbody2D _rb;
     private Vector2 _startPos;
+    private Animator anim;
 
     
     private void Awake()
     {
         // singleton instance
-        if (Instance == null) { Instance = this; DontDestroyOnLoad(gameObject); } else { Destroy(gameObject); }
+        if (Instance == null) { Instance = this; } else { Destroy(gameObject); }
+
+        anim = GetComponent<Animator>();
 
         // grabs player spawn point in level and rigidbody component
         _startPos = transform.position;
         _rb = GetComponent<Rigidbody2D>();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P)) { rf_Respawn(); }
     }
 
     // call this function on health script when necessary
@@ -47,6 +46,7 @@ public class GameController : MonoBehaviour
     public void rf_PlayerDeath()
     {
         IsDead = true;
+        anim.SetBool("isDead", true);
 
         // turn off hud
         _HudBar.SetActive(false);
@@ -54,17 +54,30 @@ public class GameController : MonoBehaviour
         _HudRespawn.SetActive(true);
     }
 
+    public void New_PowerUp(string msg)
+    {
+        _HudPowerUp.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = $"{msg} desbloqueado!";
+        _HudPowerUp.SetActive(true);
+
+        Invoke(nameof(Disable_PowerUp), 3f); 
+    }
+    private void Disable_PowerUp() => _HudPowerUp.SetActive(false);
+
     public void rf_Respawn()
     {
         bool save = false;
         if (IsDead)
         {
+            AudioManager.Instance.StopAllSongs();
+
+            AudioManager.Instance.Play("standardBGM");
             // reset vars just in case
             CanPlayerMove = true;
             InKnockback = false;
             isTimeSlowed = false;
             Time.timeScale = 1f;
             IsDead = false;
+            anim.SetBool("isDead", false);
 
             // restore hud
             _HudBar.SetActive(true);

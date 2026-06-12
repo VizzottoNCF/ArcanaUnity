@@ -9,12 +9,14 @@ public class B_IntroState : State
     private PlayerMovement pMove;
     private float timer = 0f;
     private bool fired = false;
+    private Collider2D c2D;
 
     public override void Enter()
     {
         base.Enter();
         rb.linearVelocity = Vector2.zero;
         pMove = ServiceLocator.Get<PlayerMovement>();
+        c2D = bushy.GetComponent<Collider2D>();
     }
 
     public override void FixedUpdate()
@@ -24,7 +26,7 @@ public class B_IntroState : State
         if (!FightStart)
         {
             float dist = Vector2.Distance(combat.gameObject.transform.position, pMove.gameObject.transform.position);
-            if (dist <= 5f) 
+            if (dist <= 7f) 
             { 
                 timer += Time.fixedDeltaTime;
                 
@@ -38,7 +40,8 @@ public class B_IntroState : State
         }
         else
         {
-            
+            c2D.enabled = true;
+            rb.bodyType = RigidbodyType2D.Dynamic;
             stateMachine.ChangeState(new B_IdleState(bushy));
         }
     }

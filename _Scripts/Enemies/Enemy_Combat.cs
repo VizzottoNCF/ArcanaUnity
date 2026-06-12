@@ -18,8 +18,8 @@ public class Enemy_Combat : MonoBehaviour
         enemy = GetComponent<Enemy>();
         config = enemy.Config;
     }
-    public bool CanMeleeAttack() => Time.time - lastMeleeAttackTime >= config.meleeAttackCooldown;
-    public bool CanRangedAttack() => Time.time - lastRangedAttackTime >= config.rangedAttackCooldown;
+    public bool CanMeleeAttack() => Time.time - lastMeleeAttackTime >= config.meleeAttackCooldown && config.hasMelee;
+    public bool CanRangedAttack() => Time.time - lastRangedAttackTime >= config.rangedAttackCooldown && config.hasRanged;
     public void DealDamageOnSelfCollider()
     {
         Collider2D hit = Physics2D.OverlapCircle(gameObject.transform.position, 1f, LayerMask.GetMask("Player"));

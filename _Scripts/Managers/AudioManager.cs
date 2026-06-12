@@ -22,7 +22,7 @@ public class AudioManager : MonoBehaviour
         {
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
-
+            
             s.source.volume = s.volume;
             s.source.loop = s.loop;
             s.source.loop = s.loop;
@@ -35,11 +35,15 @@ public class AudioManager : MonoBehaviour
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null) { Debug.LogWarning($"Sound {name} not found"); return; }
 
+        s.source.volume = s.volume * PlayerPrefs.GetFloat("Volume");
+
+
         if (FadeInCoroutine != null && s.fade)
             StopCoroutine(FadeInCoroutine);
-        
-        
-        s.source.Play();
+
+        if (s.playOneShot) { s.source.PlayOneShot(s.clip, s.volume); }
+        else { s.source.Play(); }
+
         if (s.fade)
             FadeInCoroutine = StartCoroutine(FadeVolume(s, FadeInCoroutine, 0f, s.volume, .2f));
     }
@@ -54,7 +58,22 @@ public class AudioManager : MonoBehaviour
         
         FadeOutCoroutine = StartCoroutine(FadeVolume(s, FadeOutCoroutine, s.volume, 0f, .2f));
     }
+    public void StopAllSongs()
+    {
+        foreach (AudioSource source in GetComponents<AudioSource>())
+        {
+            source.Stop();
+        }
+    }
 
+    public bool IsPlaying(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if (s == null) { Debug.LogWarning($"Sound {name} not found"); return false; }
+
+        if (s.source.isPlaying) { return true; } 
+        else { return false; }
+    }
     public IEnumerator FadeVolume(Sound s, Coroutine c, float startVol, float endVol, float duration)
     {
         float t = 0;

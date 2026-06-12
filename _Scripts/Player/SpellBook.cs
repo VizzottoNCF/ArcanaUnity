@@ -83,8 +83,6 @@ public class SpellBook : MonoBehaviour
         // run spell state machine for both spell slots if there isn't any spell on cooldown
         if (_spell[0] != null) { SpellStateMachine(0); }
         if (_spell[1] != null) { SpellStateMachine(1); }
-
-        //if (Input.GetKeyDown(KeyCode.K)) { ToggleSpellChangeMenu(); }
     }
 
     public void UseMana(float amount)
@@ -133,6 +131,7 @@ public class SpellBook : MonoBehaviour
     {
         if (_isChangingSpell) { return; }
 
+        // cooldown icon
         CooldownFade_VFX(slot == 0 ? _LeftSpellIcon.gameObject : _RightSpellIcon.gameObject, slot, _state[slot]);
 
         // state for spell availability
@@ -148,8 +147,6 @@ public class SpellBook : MonoBehaviour
                     AudioManager.Instance.Play("spellCast");
                 }
                 break;
-
-
             case re_SpellState.ACTIVE:
                 if (_activeTime[slot] > 0)
                 {
@@ -162,8 +159,6 @@ public class SpellBook : MonoBehaviour
                     _cooldownTime[slot] = _spell[slot].rf_ReadCooldownTime();
                 }
                 break;
-
-
             case re_SpellState.COOLDOWN:
                 if (_cooldownTime[slot] > 0)
                 {
@@ -173,10 +168,8 @@ public class SpellBook : MonoBehaviour
                 }
                 else { _state[slot] = re_SpellState.READY; _isCastingSpell = false; }
                 break;
-
             case re_SpellState.INACTIVE:
                 break;
-
             default:
                 Debug.LogWarning("SPELL STATE DEFAULTED: SOMETHING WENT WRONG.");
                 break;

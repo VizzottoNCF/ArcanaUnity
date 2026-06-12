@@ -27,6 +27,7 @@ public class PlayerResourceStats : ScriptableObject
     [Header("Map Flags")]
     public bool Grasslands1DoorB = false;
     public bool Grasslands1DoorC = false;
+    public bool VolcanoExploded = false;
 
     public bool GetFlag(string flagName)
     {
